@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	cla "github.com/cetinboran/goarg/CLA"
+)
 
 func main() {
-	fmt.Println("Help")
+	Setup := cla.Init()
+	Setup.SetTitle("GoSec")
+	Setup.AddOption("-p,--password", false, "Enter your password.", []string{""})
+	Setup.AutomaticUsage()
+	args := Setup.Start()
+
+	fmt.Printf("args: %v\n", args)
 }
