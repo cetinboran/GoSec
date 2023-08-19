@@ -1,4 +1,4 @@
-package register
+package config
 
 import "github.com/cetinboran/gosec/structs"
 
