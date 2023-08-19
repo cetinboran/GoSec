@@ -1,9 +1,8 @@
 package main
 
 import (
-	"fmt"
-
 	cla "github.com/cetinboran/goarg/CLA"
+	"github.com/cetinboran/gosec/inputhandler"
 )
 
 func main() {
@@ -54,5 +53,5 @@ func main() {
 
 	args := Setup.Start()
 
-	fmt.Printf("args: %v\n", args)
+	inputhandler.SendInput(args)
 }

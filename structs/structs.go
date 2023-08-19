@@ -5,4 +5,5 @@ type Input struct {
 	Argument string
 	Value    string
 	Errors   []string
+	ModeName string
 }
