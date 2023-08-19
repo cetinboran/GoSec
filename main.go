@@ -6,6 +6,9 @@ import (
 )
 
 func main() {
+	// İlk başta config başla ordan secret almamız lazım.
+	// Her jsona kayıt ettiğinde json var mı diye kontrol et yoksa oluştur.
+
 	// Setup ana main onda option şuanlık olmicak belki ilerde olur.
 	// Ama ana düşüncem o sadece basıldığında modların helpini göstersin veya modları göstersin
 
