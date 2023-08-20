@@ -2,10 +2,14 @@ package main
 
 import (
 	cla "github.com/cetinboran/goarg/CLA"
+	"github.com/cetinboran/gosec/database"
 	"github.com/cetinboran/gosec/inputhandler"
 )
 
 func main() {
+	// Init Database JSON
+	database.DatabaseInit()
+
 	// İlk başta config başla ordan secret almamız lazım.
 	// Her jsona kayıt ettiğinde json var mı diye kontrol et yoksa oluştur.
 
