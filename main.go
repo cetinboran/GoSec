@@ -22,7 +22,6 @@ func main() {
 	Login.SetExamples([]string{"Example 1", "Example 2"})
 	Login.AddOption("-u,--user", false, "Enter Your Username", []string{"Wrong Username"})
 	Login.AddOption("-p, --pass", false, "Enter Your Password", []string{"Wrong Password"})
-	Login.AutomaticUsage()
 
 	// Register Mode
 	Register := cla.ModInit()
@@ -32,25 +31,34 @@ func main() {
 	Register.AddOption("-p, --pass", false, "Enter Your Password", []string{"Wrong Password"})
 	Register.AddOption("-cp, --cpass", false, "Confirm Your Password", []string{"Passwords do not match!"})
 	Register.AddOption("-s, --secret", false, "Enter Your Secret", []string{"Key Length Must Be 16,24 or 32!"})
-	Register.AutomaticUsage()
 
 	// Config Mode
 	Config := cla.ModInit()
 	Config.SetTitle("Config Mode")
 	Config.SetExamples([]string{"Example 1", "Example 2"})
-	Config.AddOption("-k, --key", false, "Enter The Secret Key's Key", []string{"Key Length Must Be 16,24 or 32!"})
+	Config.AddOption("-k, --key", false, "Sets The Secret Key's Key", []string{"Key Length Must Be 16,24 or 32!"})
 
 	// Key Mode
 	Key := cla.ModInit()
 	Key.SetTitle("Key Mode")
 	Key.SetExamples([]string{"Example 1", "Example 2"})
-	Key.AddOption("-c,--create", true, "Creates Secret Key!", []string{"Key Length Must Be 16,24 or 32!"})
-	Key.AutomaticUsage()
+	Key.AddOption("-setk,--setkey", false, "Sets The Manuel Secret Key!", []string{"This must be 16,24 or 32!"})
+	Key.AddOption("-ck, --createkey", false, "Creates The Secret Key!", []string{"This must be 16,24 or 32!"})
 
 	// Mode Init
 	Setup.AddMode("login", &Login)
 	Setup.AddMode("register", &Register)
+	Setup.AddMode("config", &Config)
 	Setup.AddMode("key", &Key)
+
+	// Sets the global options.
+	Setup.AddGlobalOption("--logout", true, "Logs out so no one can use it.", []string{"You are already logged"})
+
+	// Automatic Usage
+	Login.AutomaticUsage()
+	Register.AutomaticUsage()
+	Config.AutomaticUsage()
+	Key.AutomaticUsage()
 
 	// Setup.AutomaticUsage()
 
