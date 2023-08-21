@@ -19,6 +19,6 @@ func DatabaseInit() {
 	// Creates Database Files.
 	gosecDB.CreateFiles()
 
-	// UsersT.Save("userId,username,password", []interface{}{-1, "Boran", "Boran123"}) // userId farketmez çünkü propery modu PK yaptım otomatik atıyor.
+	// UsersT.Save(gojson.DataInit([]string{"username", "password"}, []interface{}{"BORANBORAN", "1"}, &UsersT))
 
 }
