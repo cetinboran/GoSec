@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/cetinboran/gojson/gojson"
+	"github.com/cetinboran/gosec/config"
 	"github.com/cetinboran/gosec/database"
 	"github.com/cetinboran/gosec/structs"
 	"github.com/cetinboran/gosec/utilityies"
@@ -82,5 +83,11 @@ func (r *Register) Save() {
 
 	data := gojson.DataInit([]string{"username", "password", "secret"}, []interface{}{r.Username, md5_password, r.Secret}, myDb.Tables["users"])
 	myDb.Tables["users"].Save(data)
+}
 
+// you have to use this after you use Save Fnction.
+func (r *Register) CreateConfig() {
+	userId := len(database.GosecDb.Tables["users"].Get())
+
+	config.CreateConfig(userId, r.Secret)
 }
