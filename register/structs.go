@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/cetinboran/gojson/gojson"
+	"github.com/cetinboran/gosec/database"
 	"github.com/cetinboran/gosec/structs"
+	"github.com/cetinboran/gosec/utilityies"
 )
 
 type Register struct {
@@ -73,8 +76,11 @@ func (r *Register) CheckInputs() {
 }
 
 func (r *Register) Save() {
-	// myDb := database.GosecDb
+	myDb := database.GosecDb
 
-	// Tableları isimleriyle map olarak kaydet işin kolaşlaşsın
-	// yani users: *table gibi.
+	md5_password := utilityies.ConvertToMd5(r.Password)
+
+	data := gojson.DataInit([]string{"username", "password", "secret"}, []interface{}{r.Username, md5_password, r.Secret}, myDb.Tables["users"])
+	myDb.Tables["users"].Save(data)
+
 }
