@@ -31,9 +31,9 @@ func main() {
 	Register := cla.ModInit()
 	Register.SetTitle("Register Mode")
 	Register.SetExamples([]string{"Example 1", "Example 2"})
-	Register.AddOption("-u, --user", false, "Enter Your Username", []string{"Wrong Username"})
-	Register.AddOption("-p, --pass", false, "Enter Your Password", []string{"Wrong Password"})
-	Register.AddOption("-cp, --cpass", false, "Confirm Your Password", []string{"Passwords do not match!"})
+	Register.AddOption("-u, --user", false, "Enter Your Username", []string{"Username must be at least 3 characters"})
+	Register.AddOption("-p, --pass", false, "Enter Your Password", []string{"Password must be at least 3 characters"})
+	Register.AddOption("-cp, --cpass", false, "Confirm Your Password", []string{"Password is not the same as confirm password"})
 	Register.AddOption("-s, --secret", false, "Enter Your Secret", []string{"Key Length Must Be 16,24 or 32!"})
 
 	// Config Mode
@@ -41,6 +41,7 @@ func main() {
 	Config.SetTitle("Config Mode")
 	Config.SetExamples([]string{"Example 1", "Example 2"})
 	Config.AddOption("-k, --key", false, "Sets The Secret Key's Key", []string{"Key Length Must Be 16,24 or 32!"})
+	Config.AddOption("-cl, --codeLimit", false, "Set The Code Limit", []string{""})
 
 	// Key Mode
 	Key := cla.ModInit()

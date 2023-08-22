@@ -1,8 +1,15 @@
 package register
 
-import "github.com/cetinboran/gosec/structs"
+import (
+	"fmt"
+
+	"github.com/cetinboran/gosec/structs"
+)
 
 func Start(args []structs.Input) {
-	// Start'ın her şeyin başladığı yer olsun.
+	newRegister := RegisterInit()
+	newRegister.TakeInput(args)
+	newRegister.CheckInputs()
 
+	fmt.Println(newRegister)
 }
