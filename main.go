@@ -18,6 +18,7 @@ func main() {
 
 	Setup := cla.Init()
 	Setup.SetTitle("GoSec")
+	Setup.SetDescription("A terminal-based password manager application that securely stores and manages passwords through simple commands.")
 
 	// Login olunca true olsun jsonda ve onu kaydet. true ise diğer komutarı çalıştırmasına izin ver. logout atınca false yap çalıştıramasın başkası.
 
@@ -49,15 +50,13 @@ func main() {
 	Setup.AddMode("key", &Key)
 
 	// Sets the global options.
-	// Global optionlara dikkat et diğer optionlar ile çakışıyor
 	Setup.AddGlobalOption("-P", false, "Enter your password for using the program.", []string{""})
 
 	// Automatic Usage
 	Register.AutomaticUsage()
 	Config.AutomaticUsage()
 	Key.AutomaticUsage()
-
-	// Setup.AutomaticUsage()
+	Setup.AutomaticUsage()
 
 	args := Setup.Start()
 
