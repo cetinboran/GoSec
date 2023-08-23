@@ -1,8 +1,8 @@
 package key
 
-import "github.com/cetinboran/gosec/structs"
+import cla "github.com/cetinboran/goarg/CLA"
 
-func Start(args []structs.Input) {
+func Start(args []cla.Input) {
 	// Start'ın her şeyin başladığı yer olsun.
 
 }

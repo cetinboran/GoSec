@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
+	cla "github.com/cetinboran/goarg/CLA"
 	"github.com/cetinboran/gojson/gojson"
 	"github.com/cetinboran/gosec/config"
 	"github.com/cetinboran/gosec/database"
-	"github.com/cetinboran/gosec/structs"
 	"github.com/cetinboran/gosec/utilityies"
 )
 
@@ -23,7 +23,7 @@ func RegisterInit() *Register {
 }
 
 // This will takes input form args.
-func (r *Register) TakeInput(args []structs.Input) {
+func (r *Register) TakeInput(args []cla.Input) {
 	for _, i2 := range args {
 		if i2.Argument == "u" || i2.Argument == "user" {
 			r.Username = i2.Value
@@ -76,6 +76,7 @@ func (r *Register) CheckInputs() {
 	}
 }
 
+// Eğer böyle bir şifre var ise onu yapamazsın uyarısı versin.
 func (r *Register) Save() {
 	myDb := database.GosecDb
 

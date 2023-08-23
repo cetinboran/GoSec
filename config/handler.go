@@ -3,10 +3,10 @@ package config
 import (
 	"fmt"
 
-	"github.com/cetinboran/gosec/structs"
+	cla "github.com/cetinboran/goarg/CLA"
 )
 
-func Start(args []structs.Input) {
+func Start(args []cla.Input) {
 	fmt.Println(args)
 
 }

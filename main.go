@@ -20,12 +20,6 @@ func main() {
 	Setup.SetTitle("GoSec")
 
 	// Login olunca true olsun jsonda ve onu kaydet. true ise diğer komutarı çalıştırmasına izin ver. logout atınca false yap çalıştıramasın başkası.
-	// Login Mode
-	Login := cla.ModInit()
-	Login.SetTitle("Login Mode")
-	Login.SetExamples([]string{"Example 1", "Example 2"})
-	Login.AddOption("-u,--user", false, "Enter Your Username", []string{"Wrong Username"})
-	Login.AddOption("-p, --pass", false, "Enter Your Password", []string{"Wrong Password"})
 
 	// Register Mode
 	Register := cla.ModInit()
@@ -51,16 +45,14 @@ func main() {
 	Key.AddOption("-ck, --createkey", false, "Creates The Secret Key!", []string{"This must be 16,24 or 32!"})
 
 	// Mode Init
-	Setup.AddMode("login", &Login)
 	Setup.AddMode("register", &Register)
 	Setup.AddMode("config", &Config)
 	Setup.AddMode("key", &Key)
 
 	// Sets the global options.
-	Setup.AddGlobalOption("--logout", true, "Logs out so no one can use it.", []string{"You are already logged"})
+	Setup.AddGlobalOption("-p,--pass", true, "Enter your password for using the program.", []string{""})
 
 	// Automatic Usage
-	Login.AutomaticUsage()
 	Register.AutomaticUsage()
 	Config.AutomaticUsage()
 	Key.AutomaticUsage()
