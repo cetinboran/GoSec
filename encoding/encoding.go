@@ -26,6 +26,7 @@ func Encrypt(key []byte, plaintext string) (string, error) {
 	return base64.StdEncoding.EncodeToString(ciphertext), nil
 }
 
+// Eğer şifrelenmiş bir text vermezsek error veriyor.
 func Decrypt(key []byte, ciphertext string) (string, error) {
 	ciphertextBytes, err := base64.StdEncoding.DecodeString(ciphertext)
 	if err != nil {

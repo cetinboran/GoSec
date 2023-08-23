@@ -15,7 +15,6 @@ func DatabaseInit() {
 	UsersT.AddProperty("userId", "int", "PK")
 	UsersT.AddProperty("username", "string", "")
 	UsersT.AddProperty("password", "string", "")
-	UsersT.AddProperty("secret", "string", "")
 
 	ConfigT := gojson.CreateTable("config")
 
