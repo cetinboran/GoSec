@@ -41,7 +41,7 @@ func main() {
 	Key := cla.ModInit()
 	Key.SetTitle("Key Mode")
 	Key.SetExamples([]string{"Example 1", "Example 2"})
-	Key.AddOption("-ck, --createkey", false, "Creates The Secret Key!", []string{"This must be 16,24 or 32!"})
+	Key.AddOption("-gen, --generate", false, "Creates The Secret Key!", []string{"This must be 16,24 or 32!"})
 
 	// Mode Init
 	Setup.AddMode("register", &Register)
