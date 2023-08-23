@@ -80,10 +80,22 @@ func (r *Register) CheckInputs() {
 func (r *Register) Save() {
 	myDb := database.GosecDb
 
+	UsersT := myDb.Tables["users"]
 	md5_password := utilityies.ConvertToMd5(r.Password)
 
-	data := gojson.DataInit([]string{"username", "password", "secret"}, []interface{}{r.Username, md5_password, r.Secret}, myDb.Tables["users"])
-	myDb.Tables["users"].Save(data)
+	// Şifre ile programı kullanacakları için 0 değil ise böyle bir şifre vardır dolayısıyla başka şifre gir uyarısı veriyoruz.
+	if len(UsersT.Find("password", md5_password)) != 0 {
+		fmt.Println(GetErrors(6))
+		os.Exit(6)
+	}
+
+	if len(UsersT.Find("username", r.Username)) != 0 {
+		fmt.Println(GetErrors(7))
+		os.Exit(7)
+	}
+
+	data := gojson.DataInit([]string{"username", "password", "secret"}, []interface{}{r.Username, md5_password, r.Secret}, UsersT)
+	UsersT.Save(data)
 }
 
 // you have to use this after you use Save Fnction.

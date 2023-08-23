@@ -19,6 +19,6 @@ func ConfigInit() *Config {
 func CreateConfig(userId int, secret string) {
 	myDb := database.GosecDb
 
-	data := gojson.DataInit([]string{"userId", "secret", "codelimit"}, []interface{}{userId, secret, 5}, myDb.Tables["config"])
+	data := gojson.DataInit([]string{"userId", "secret"}, []interface{}{userId, secret}, myDb.Tables["config"])
 	myDb.Tables["config"].Save(data)
 }

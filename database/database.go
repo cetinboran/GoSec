@@ -22,7 +22,6 @@ func DatabaseInit() {
 	ConfigT.AddProperty("configId", "int", "PK")
 	ConfigT.AddProperty("userId", "int", "") // Bunu register olunca otomatik atamam lazım.
 	ConfigT.AddProperty("secret", "string", "")
-	ConfigT.AddProperty("codelimit", "int", "")
 
 	// Adds table to the Database
 	GosecDb.AddTable(&UsersT)

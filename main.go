@@ -50,7 +50,8 @@ func main() {
 	Setup.AddMode("key", &Key)
 
 	// Sets the global options.
-	Setup.AddGlobalOption("-p,--pass", true, "Enter your password for using the program.", []string{""})
+	// Global optionlara dikkat et diğer optionlar ile çakışıyor
+	Setup.AddGlobalOption("-a", true, "Enter your password for using the program.", []string{""})
 
 	// Automatic Usage
 	Register.AutomaticUsage()

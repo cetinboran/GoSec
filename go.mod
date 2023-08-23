@@ -4,4 +4,4 @@ go 1.20
 
 require github.com/cetinboran/goarg v1.0.2
 
-require github.com/cetinboran/gojson v1.0.4
+require github.com/cetinboran/gojson v1.0.5

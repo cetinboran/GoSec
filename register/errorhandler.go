@@ -12,6 +12,10 @@ func GetErrors(errorId int) string {
 		return "Key Length Must Be 16,24 or 32!"
 	case 5:
 		return "You forgot to enter an argument"
+	case 6:
+		return "This password is being used, please enter another password."
+	case 7:
+		return "This username is being used, please enter another username."
 	}
 
 	return ""

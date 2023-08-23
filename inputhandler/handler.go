@@ -7,7 +7,6 @@ import (
 
 	"github.com/cetinboran/gosec/config"
 	"github.com/cetinboran/gosec/key"
-	"github.com/cetinboran/gosec/login"
 	"github.com/cetinboran/gosec/register"
 )
 
@@ -19,9 +18,6 @@ func SendInput(args []cla.Input) {
 	// Mode Name'e göre start çalışıyor.
 	// Artık gerisi kendi klasöründe işlevi yapıcak.
 	switch ModeName {
-	case "login":
-		login.Start(args)
-		break
 	case "register":
 		register.Start(args)
 		break
