@@ -34,14 +34,13 @@ func main() {
 	Config := cla.ModInit()
 	Config.SetTitle("Config Mode")
 	Config.SetExamples([]string{"Example 1", "Example 2"})
-	Config.AddOption("-k, --key", false, "Sets The Secret Key's Key", []string{"Key Length Must Be 16,24 or 32!"})
+	Config.AddOption("-k, --key", false, "Sets The Secret Key", []string{"Key Length Must Be 16,24 or 32!"})
 	Config.AddOption("-cl, --codeLimit", false, "Set The Code Limit", []string{""})
 
 	// Key Mode
 	Key := cla.ModInit()
 	Key.SetTitle("Key Mode")
 	Key.SetExamples([]string{"Example 1", "Example 2"})
-	Key.AddOption("-setk,--setkey", false, "Sets The Manuel Secret Key!", []string{"This must be 16,24 or 32!"})
 	Key.AddOption("-ck, --createkey", false, "Creates The Secret Key!", []string{"This must be 16,24 or 32!"})
 
 	// Mode Init
@@ -51,7 +50,7 @@ func main() {
 
 	// Sets the global options.
 	// Global optionlara dikkat et diğer optionlar ile çakışıyor
-	Setup.AddGlobalOption("-a", true, "Enter your password for using the program.", []string{""})
+	Setup.AddGlobalOption("-P", false, "Enter your password for using the program.", []string{""})
 
 	// Automatic Usage
 	Register.AutomaticUsage()

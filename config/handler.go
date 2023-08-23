@@ -4,9 +4,13 @@ import (
 	"fmt"
 
 	cla "github.com/cetinboran/goarg/CLA"
+	"github.com/cetinboran/gosec/global"
 )
 
 func Start(args []cla.Input) {
-	fmt.Println(args)
+	// Auth Check
+	global.Auth(args)
+
+	fmt.Println("Welcome to the config")
 
 }

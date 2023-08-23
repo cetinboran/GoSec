@@ -1,8 +1,16 @@
 package key
 
-import cla "github.com/cetinboran/goarg/CLA"
+import (
+	"fmt"
 
+	cla "github.com/cetinboran/goarg/CLA"
+	"github.com/cetinboran/gosec/global"
+)
+
+// Start'ın her şeyin başladığı yer olsun.
 func Start(args []cla.Input) {
-	// Start'ın her şeyin başladığı yer olsun.
+	global.Auth(args)
+
+	fmt.Println("Welcome to the key")
 
 }
