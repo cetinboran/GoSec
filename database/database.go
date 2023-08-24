@@ -9,22 +9,30 @@ func DatabaseInit() {
 	// Init DB
 	GosecDb = gojson.CreateDatabase("gosecDB", "./")
 
-	// Init Table
+	// Users Table
 	UsersT := gojson.CreateTable("users")
-
 	UsersT.AddProperty("userId", "int", "PK")
 	UsersT.AddProperty("username", "string", "")
 	UsersT.AddProperty("password", "string", "")
 
+	// Config Table
 	ConfigT := gojson.CreateTable("config")
-
 	ConfigT.AddProperty("configId", "int", "PK")
-	ConfigT.AddProperty("userId", "int", "") // Bunu register olunca otomatik atamam lazım.
+	ConfigT.AddProperty("userId", "int", "")
 	ConfigT.AddProperty("secret", "string", "")
+
+	// Passwords Table
+	PasswordsT := gojson.CreateTable("passwords")
+	PasswordsT.AddProperty("passwordId", "int", "PK")
+	PasswordsT.AddProperty("userId", "int", "")
+	PasswordsT.AddProperty("title", "string", "")
+	PasswordsT.AddProperty("url", "string", "")
+	PasswordsT.AddProperty("password", "string", "")
 
 	// Adds table to the Database
 	GosecDb.AddTable(&UsersT)
 	GosecDb.AddTable(&ConfigT)
+	GosecDb.AddTable(&PasswordsT)
 
 	// Creates Database Files.
 	GosecDb.CreateFiles()

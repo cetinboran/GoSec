@@ -43,10 +43,21 @@ func main() {
 	Key.SetExamples([]string{"Example 1", "Example 2"})
 	Key.AddOption("-gen, --generate", false, "Creates The Secret Key!", []string{"This must be 16,24 or 32!"})
 
+	// Password Mode
+	Password := cla.ModInit()
+	Password.SetTitle("Password Mode")
+	Password.SetDescription("This mod allows you to save your passwords.\nYou can even generate an automatic password")
+	Password.SetExamples([]string{"Example 1", "Example 2"})
+	Password.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.", []string{})
+	Password.AddOption("-u,--url", false, "Enter where this password is being used", []string{})
+	Password.AddOption("-p,--pass", false, "Enter the password", []string{})
+	Password.AddOption("--create", true, "Creates Password For You.", []string{})
+
 	// Mode Init
 	Setup.AddMode("register", &Register)
 	Setup.AddMode("config", &Config)
 	Setup.AddMode("key", &Key)
+	Setup.AddMode("password", &Password)
 
 	// Sets the global options.
 	Setup.AddGlobalOption("-P", false, "Enter your password for using the program.", []string{""})
@@ -55,6 +66,7 @@ func main() {
 	Register.AutomaticUsage()
 	Config.AutomaticUsage()
 	Key.AutomaticUsage()
+	Password.AutomaticUsage()
 	Setup.AutomaticUsage()
 
 	args := Setup.Start()

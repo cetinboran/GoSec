@@ -9,6 +9,7 @@ import (
 	"github.com/cetinboran/gosec/database"
 )
 
+// Config Id yazmadım otomatik eklenicek DB ye zaten bu struct kolaylık için
 type Config struct {
 	UserId   float64 // Veriyi json dan çekiyoruz. Jsonda sayıları float64 yapıyor.
 	Secret   string
