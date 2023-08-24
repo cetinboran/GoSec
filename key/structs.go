@@ -52,15 +52,28 @@ func (k *Key) GenerateKey() {
 	source := rand.NewSource(seed)
 	random := rand.New(source)
 
+	var lengthForSecret int
+	switch k.Length {
+	case 16:
+		lengthForSecret = 4
+		break
+	case 24:
+		lengthForSecret = 6
+		break
+	case 32:
+		lengthForSecret = 8
+		break
+	}
+
 	secretKey := ""
-	for i := 0; i < 16; i++ {
-		if i < 4 {
+	for i := 0; i < k.Length; i++ {
+		if i < lengthForSecret {
 			randIndex := random.Intn(len(lower))
 			secretKey += string(lower[randIndex])
-		} else if i < 8 {
+		} else if i < lengthForSecret+4 {
 			randIndex := random.Intn(len(upper))
 			secretKey += string(upper[randIndex])
-		} else if i < 12 {
+		} else if i < lengthForSecret+8 {
 			randIndex := random.Intn(len(numbers))
 			secretKey += string(numbers[randIndex])
 		} else {

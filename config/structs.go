@@ -46,6 +46,7 @@ func (c *Config) HandleInputs() {
 	if c.Secret != "" {
 		var choice string
 
+		// Burayı sonradan otomatikleştir şuanlık şifreleri kaydettiğin bir yer yok.
 		fmt.Println("If you haven't already obtained the encrypted versions of all passwords from the dump mode, when the 'secret' changes,\nall passwords become unusable.")
 		fmt.Print("Are you sure? (Y/N): ")
 		fmt.Scan(&choice)
