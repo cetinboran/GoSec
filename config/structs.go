@@ -11,12 +11,12 @@ import (
 
 // Config Id yazmadım otomatik eklenicek DB ye zaten bu struct kolaylık için
 type Config struct {
-	UserId   float64 // Veriyi json dan çekiyoruz. Jsonda sayıları float64 yapıyor.
+	UserId   int // Veriyi json dan çekiyoruz. Jsonda sayıları float64 yapıyor.
 	Secret   string
 	Password string
 }
 
-func ConfigInit(userId float64) *Config {
+func ConfigInit(userId int) *Config {
 	return &Config{UserId: userId}
 }
 

@@ -5,20 +5,22 @@ import (
 	"os"
 
 	cla "github.com/cetinboran/goarg/CLA"
+	"github.com/cetinboran/gojson/gojson"
+	"github.com/cetinboran/gosec/database"
 	"github.com/cetinboran/gosec/utilityies"
 )
 
 // Password Id yazmadım otomatik eklenicek DB ye zaten bu struct kolaylık için
 type Password struct {
-	UserId   float64
+	UserId   int
 	Title    string
 	Url      string
 	Password string
 	Create   string
 }
 
-func PasswordInit() *Password {
-	return &Password{}
+func PasswordInit(userId int) *Password {
+	return &Password{UserId: userId}
 }
 
 func (p *Password) TakeInputs(args []cla.Input) {
@@ -46,13 +48,13 @@ func (p *Password) CheckInputs() {
 		os.Exit(2)
 	}
 
-	if p.Password == "" && p.Create == "1" {
-		p.Password = utilityies.GenerateKey(16)
-	}
-
 	if p.Password != "" && p.Create == "1" {
 		fmt.Println(GetErrors(3))
 		os.Exit(3)
+	}
+
+	if p.Password == "" && p.Create == "1" {
+		p.Password = utilityies.GenerateKey(16)
 	}
 
 	if len(p.Password) < 5 {
@@ -71,5 +73,11 @@ func (p *Password) CheckInputs() {
 }
 
 func (p *Password) Save() {
+	// userId yi global ın auth fonksiyonundan alıyoruz.
+	PasswordT := database.GosecDb.Tables["password"]
 
+	// passwordId yi db de pk yaptığım için otomatik ayarlanacak
+	newData := gojson.DataInit([]string{"userId", "title", "url", "password"}, []interface{}{p.UserId, p.Title, p.Url, p.Password}, PasswordT)
+
+	PasswordT.Save(newData)
 }

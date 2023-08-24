@@ -9,7 +9,7 @@ import (
 	"github.com/cetinboran/gosec/settings"
 )
 
-func setKey(userId float64, secret string) {
+func setKey(userId int, secret string) {
 	// Gelen secret'ı şifreliyoruz
 	encrypedSecret, _ := encoding.Encrypt(settings.GetSecretForSecrets(), secret)
 

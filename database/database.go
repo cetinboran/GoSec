@@ -22,7 +22,7 @@ func DatabaseInit() {
 	ConfigT.AddProperty("secret", "string", "")
 
 	// Passwords Table
-	PasswordsT := gojson.CreateTable("passwords")
+	PasswordsT := gojson.CreateTable("password")
 	PasswordsT.AddProperty("passwordId", "int", "PK")
 	PasswordsT.AddProperty("userId", "int", "")
 	PasswordsT.AddProperty("title", "string", "")
