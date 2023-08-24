@@ -31,5 +31,8 @@ func SendInput(args []cla.Input) {
 	case "password":
 		password.Start(args)
 		break
+	case "create":
+		password.Start(args)
+		break
 	}
 }
