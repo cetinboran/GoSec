@@ -47,11 +47,30 @@ func main() {
 	Password := cla.ModInit()
 	Password.SetTitle("Password Mode")
 	Password.SetDescription("This mod allows you to save your passwords.\nYou can even generate an automatic password")
-	Password.SetExamples([]string{"Example 1", "Example 2"})
-	Password.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.", []string{})
-	Password.AddOption("-u,--url", false, "Enter where this password is being used", []string{})
-	Password.AddOption("-p,--pass", false, "Enter the password", []string{})
-	Password.AddOption("--create", true, "Creates Password For You.", []string{})
+	Password.SetExamples([]string{"gosec password create -P <password> --create"})
+
+	Create := cla.ModInit()
+	Create.SetTitle("Password's Create Mode")
+	Create.SetDescription("You can save your passwords in this field.")
+	Create.SetExamples([]string{"gosec password create -P <loginpassword> -t <title> -u <url> -p <password>", "gosec password create -P <loginpassword> --create"})
+	Create.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.", []string{})
+	Create.AddOption("-u,--url", false, "Enter where this password is being used", []string{})
+	Create.AddOption("-p,--pass", false, "Enter the password", []string{})
+	Create.AddOption("--create", true, "Creates Password For You.", []string{})
+
+	// Password.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.", []string{})
+	// Password.AddOption("-u,--url", false, "Enter where this password is being used", []string{})
+	// Password.AddOption("-p,--pass", false, "Enter the password", []string{})
+	// Password.AddOption("--create", true, "Creates Password For You.", []string{})
+
+	// Password Mode Init
+	Password.AddMode("create", &Create)
+
+	// Global Option For Mods
+	Password.AddGlobalOption("-P", false, "Enter your password for using the program.", []string{""})
+
+	// Password Mods Usage
+	Create.AutomaticUsage()
 
 	// Main Mode Init
 	Setup.AddMode("register", &Register)

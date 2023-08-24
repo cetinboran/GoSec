@@ -5,6 +5,7 @@ import (
 
 	cla "github.com/cetinboran/goarg/CLA"
 	"github.com/cetinboran/gosec/global"
+	"github.com/cetinboran/gosec/utilityies"
 )
 
 func Start(args []cla.Input) {
@@ -14,5 +15,6 @@ func Start(args []cla.Input) {
 	newPassword.CheckInputs()
 	newPassword.Save()
 
-	fmt.Println(newPassword)
+	fmt.Println("Your password has been successfully saved: ", newPassword.Password)
+	utilityies.CopyToClipboard(newPassword.Password)
 }
