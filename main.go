@@ -53,7 +53,7 @@ func main() {
 	Password.AddOption("-p,--pass", false, "Enter the password", []string{})
 	Password.AddOption("--create", true, "Creates Password For You.", []string{})
 
-	// Mode Init
+	// Main Mode Init
 	Setup.AddMode("register", &Register)
 	Setup.AddMode("config", &Config)
 	Setup.AddMode("key", &Key)
