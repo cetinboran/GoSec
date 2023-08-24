@@ -9,6 +9,8 @@ import (
 func Start(args []cla.Input) {
 	//global.Auth(args)
 	newPassword := PasswordInit()
+	newPassword.TakeInputs(args)
+	newPassword.CheckInputs()
 
 	fmt.Println(newPassword)
 }

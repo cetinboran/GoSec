@@ -2,10 +2,8 @@ package key
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
 	"strconv"
-	"time"
 
 	cla "github.com/cetinboran/goarg/CLA"
 	"github.com/cetinboran/gosec/utilityies"
@@ -43,57 +41,11 @@ func (k *Key) CheckInputs() {
 }
 
 func (k *Key) GenerateKey() {
-	lower := "abcdefghijklmnopqrstuvwxyz"
-	upper := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	numbers := "0123456789"
-	specialChars := "!@#$%^&*()_-+=[]{}|;:,.<>?/~"
+	theSecret := utilityies.GenerateKey(k.Length)
 
-	seed := time.Now().UnixNano()
-	source := rand.NewSource(seed)
-	random := rand.New(source)
+	fmt.Println("The Generated Secret Key: ", theSecret)
 
-	var lengthForSecret int
-	switch k.Length {
-	case 16:
-		lengthForSecret = 4
-		break
-	case 24:
-		lengthForSecret = 6
-		break
-	case 32:
-		lengthForSecret = 8
-		break
-	}
-
-	secretKey := ""
-	for i := 0; i < k.Length; i++ {
-		if i < lengthForSecret {
-			randIndex := random.Intn(len(lower))
-			secretKey += string(lower[randIndex])
-		} else if i < lengthForSecret+4 {
-			randIndex := random.Intn(len(upper))
-			secretKey += string(upper[randIndex])
-		} else if i < lengthForSecret+8 {
-			randIndex := random.Intn(len(numbers))
-			secretKey += string(numbers[randIndex])
-		} else {
-			randIndex := random.Intn(len(specialChars))
-			secretKey += string(specialChars[randIndex])
-		}
-	}
-
-	// Secret'ı karıştırıyor.
-	strArray := []rune(secretKey)
-	for i := len(strArray) - 1; i > 0; i-- {
-		j := random.Intn(i + 1)
-		strArray[i], strArray[j] = strArray[j], strArray[i]
-	}
-
-	shuffledKey := string(strArray)
-
-	fmt.Println("The Generated Secret Key: ", shuffledKey)
-
-	err := utilityies.CopyToClipboard(shuffledKey)
+	err := utilityies.CopyToClipboard(theSecret)
 	if err != nil {
 		fmt.Println(err)
 	}
