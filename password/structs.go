@@ -7,6 +7,8 @@ import (
 	cla "github.com/cetinboran/goarg/CLA"
 	"github.com/cetinboran/gojson/gojson"
 	"github.com/cetinboran/gosec/database"
+	"github.com/cetinboran/gosec/myencode"
+	"github.com/cetinboran/gosec/settings"
 	"github.com/cetinboran/gosec/utilityies"
 )
 
@@ -76,8 +78,21 @@ func (p *Password) Save() {
 	// userId yi global ın auth fonksiyonundan alıyoruz.
 	PasswordT := database.GosecDb.Tables["password"]
 
+	ConfigT := database.GosecDb.Tables["config"]
+
+	user := ConfigT.Find("userId", p.UserId)
+	userSecret := user[0]["secret"].(string) // içindeki string olduğu için böyle yaparak string yaptım sonra byte a çevirdim diğer türlü hata alıyorum.
+
+	// Sonra şifrelenmiş olan user secret'ı önce decode atıyoruz.
+	decryptedUserSecret, _ := myencode.Decrypt(settings.GetSecretForSecrets(), userSecret)
+
+	// interface olduğu için userSecret değeri böyle casting yapılıyor.
+	// ardından decode edilmiş user secret ile şifreyi şifreliyoruz.
+	cryptedPassword, _ := myencode.Encrypt([]byte(decryptedUserSecret), p.Password)
+
 	// passwordId yi db de pk yaptığım için otomatik ayarlanacak
-	newData := gojson.DataInit([]string{"userId", "title", "url", "password"}, []interface{}{p.UserId, p.Title, p.Url, p.Password}, PasswordT)
+	// sonra kayıt işlemi gerçekleştiriliyor.
+	newData := gojson.DataInit([]string{"userId", "title", "url", "password"}, []interface{}{p.UserId, p.Title, p.Url, cryptedPassword}, PasswordT)
 
 	PasswordT.Save(newData)
 }

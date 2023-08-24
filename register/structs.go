@@ -8,7 +8,7 @@ import (
 	"github.com/cetinboran/gojson/gojson"
 	"github.com/cetinboran/gosec/config"
 	"github.com/cetinboran/gosec/database"
-	"github.com/cetinboran/gosec/encoding"
+	"github.com/cetinboran/gosec/myencode"
 	"github.com/cetinboran/gosec/settings"
 	"github.com/cetinboran/gosec/utilityies"
 )
@@ -107,6 +107,6 @@ func (r *Register) CreateConfig() {
 	userId := len(database.GosecDb.Tables["users"].Get())
 
 	// Zaten secret'ı kontrol edicem 16 24 veya 32 olsun diye o yüzden burda bakmıyorum
-	cryptedSecret, _ := encoding.Encrypt(settings.GetSecretForSecrets(), r.Secret)
+	cryptedSecret, _ := myencode.Encrypt(settings.GetSecretForSecrets(), r.Secret)
 	config.CreateConfig(userId, cryptedSecret)
 }

@@ -5,13 +5,13 @@ import (
 
 	"github.com/cetinboran/gojson/gojson"
 	"github.com/cetinboran/gosec/database"
-	"github.com/cetinboran/gosec/encoding"
+	"github.com/cetinboran/gosec/myencode"
 	"github.com/cetinboran/gosec/settings"
 )
 
 func setKey(userId int, secret string) {
 	// Gelen secret'ı şifreliyoruz
-	encrypedSecret, _ := encoding.Encrypt(settings.GetSecretForSecrets(), secret)
+	encrypedSecret, _ := myencode.Encrypt(settings.GetSecretForSecrets(), secret)
 
 	// Database'den config Table'a erişiyoruz.
 	configT := database.GosecDb.Tables["config"]
