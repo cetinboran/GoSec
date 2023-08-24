@@ -9,8 +9,11 @@ import (
 
 func Start(args []cla.Input) {
 	// Auth Check
-	global.Auth(args)
+	userId := global.Auth(args)
+	fmt.Println("Welcome to The Config Mode")
 
-	fmt.Println("Welcome to the config")
-
+	newConfig := ConfigInit(userId)
+	newConfig.TakeInputs(args)
+	newConfig.CheckInputs()
+	newConfig.HandleInputs()
 }

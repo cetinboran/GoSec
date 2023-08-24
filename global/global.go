@@ -12,7 +12,7 @@ import (
 // Register mode hariç eğer -ps yani şifre girilmez ise ve doğru değil ise hata vermeliyiz. Karşm şifre gir diye o yüzden her yerde olacak şeyi buraya yazıcam
 
 // Auth Control
-func Auth(args []cla.Input) {
+func Auth(args []cla.Input) float64 {
 	// Bu kısma gelmesi için kullıcının en az bir option girmesi lazım bu nedenle help in çalışmasına engel değil.
 
 	theIndex := -1
@@ -35,8 +35,15 @@ func Auth(args []cla.Input) {
 	md5_password := utilityies.ConvertToMd5(args[theIndex].Value)
 
 	// Len 0 ise yoktur dolayısıyla error atıcaz.
-	if len(usersT.Find("password", md5_password)) == 0 {
+
+	user := usersT.Find("password", md5_password)
+	if len(user) == 0 {
 		fmt.Println(GetErrors(2))
 		os.Exit(2)
 	}
+
+	// Zaten programda kimsenin aynı şifresi olamıyor o yüzden böyle girebilirim
+
+	
+	return user[0]["userId"].(float64)
 }
