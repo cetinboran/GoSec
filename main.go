@@ -26,24 +26,24 @@ func main() {
 	Register := cla.ModInit()
 	Register.SetTitle("Register Mode")
 	Register.SetExamples([]string{"Example 1", "Example 2"})
-	Register.AddOption("-u, --user", false, "Enter Your Username", []string{"Username must be at least 3 characters"})
-	Register.AddOption("-p, --pass", false, "Enter Your Password", []string{"Password must be at least 3 characters"})
-	Register.AddOption("-cp, --cpass", false, "Confirm Your Password", []string{"Password is not the same as confirm password"})
-	Register.AddOption("-s, --secret", false, "Enter Your Secret", []string{"Key Length Must Be 16,24 or 32!"})
+	Register.AddOption("-u, --user", false, "Enter Your Username")
+	Register.AddOption("-p, --pass", false, "Enter Your Password")
+	Register.AddOption("-cp, --cpass", false, "Confirm Your Password")
+	Register.AddOption("-s, --secret", false, "Enter Your Secret")
 
 	// Config Mode
 	Config := cla.ModInit()
 	Config.SetTitle("Config Mode")
 	Config.SetExamples([]string{"Example 1", "Example 2"})
-	Config.AddOption("-k, --key", false, "Sets The Secret Key", []string{"Key Length Must Be 16,24 or 32!"})
+	Config.AddOption("-k, --key", false, "Sets The Secret Key")
 
 	// Key Mode
 	Key := cla.ModInit()
 	Key.SetTitle("Key Mode")
 	Key.SetExamples([]string{"Example 1", "Example 2"})
-	Key.AddOption("-gen, --generate", false, "Creates The Secret Key!", []string{"This must be 16,24 or 32!"})
+	Key.AddOption("-gen, --generate", false, "Creates The Secret Key!")
 
-	// Password Mode
+	// Password Mode **********************************************************************
 	Password := cla.ModInit()
 	Password.SetTitle("Password Mode")
 	Password.SetDescription("This mod allows you to save your passwords.\nYou can even generate an automatic password")
@@ -53,24 +53,20 @@ func main() {
 	Create.SetTitle("Password's Create Mode")
 	Create.SetDescription("You can save your passwords in this field.")
 	Create.SetExamples([]string{"gosec password create -P <loginpassword> -t <title> -u <url> -p <password>", "gosec password create -P <loginpassword> --create"})
-	Create.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.", []string{})
-	Create.AddOption("-u,--url", false, "Enter where this password is being used", []string{})
-	Create.AddOption("-p,--pass", false, "Enter the password", []string{})
-	Create.AddOption("--create", true, "Creates Password For You.", []string{})
-
-	// Password.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.", []string{})
-	// Password.AddOption("-u,--url", false, "Enter where this password is being used", []string{})
-	// Password.AddOption("-p,--pass", false, "Enter the password", []string{})
-	// Password.AddOption("--create", true, "Creates Password For You.", []string{})
+	Create.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.")
+	Create.AddOption("-u,--url", false, "Enter where this password is being used")
+	Create.AddOption("-p,--pass", false, "Enter the password")
+	Create.AddOption("--create", true, "Creates Password For You.")
 
 	// Password Mode Init
 	Password.AddMode("create", &Create)
 
 	// Global Option For Mods
-	Password.AddGlobalOption("-P", false, "Enter your password for using the program.", []string{""})
+	Password.AddGlobalOption("-P", false, "Enter your password for using the program.")
 
-	// Password Mods Usage
+	// Password Mode Automatic Usage
 	Create.AutomaticUsage()
+	// Password Mods Usage **********************************************************************
 
 	// Main Mode Init
 	Setup.AddMode("register", &Register)
@@ -79,7 +75,7 @@ func main() {
 	Setup.AddMode("password", &Password)
 
 	// Sets the global options.
-	Setup.AddGlobalOption("-P", false, "Enter your password for using the program.", []string{""})
+	Setup.AddGlobalOption("-P", false, "Enter your password for using the program.")
 
 	// Automatic Usage
 	Register.AutomaticUsage()
