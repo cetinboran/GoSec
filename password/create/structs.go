@@ -91,10 +91,10 @@ func (p *Password) Save() {
 	cryptedPassword, _ := myencode.Encrypt([]byte(decryptedUserSecret), p.Password)
 
 	// Eğer o title'dan başka var ise bu title kullanılıyor diyorum. Beliki şuanlık gereksiz olabilir ID den çekmek daha mantıklı
-	// if len(PasswordT.Find("title", p.Title)) != 0 {
-	// 	fmt.Println(GetErrors(4))
-	// 	os.Exit(4)
-	// }
+	if len(PasswordT.Find("title", p.Title)) != 0 {
+		fmt.Println(GetErrors(4))
+		os.Exit(4)
+	}
 
 	// passwordId yi db de pk yaptığım için otomatik ayarlanacak
 	// sonra kayıt işlemi gerçekleştiriliyor.

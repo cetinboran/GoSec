@@ -10,6 +10,7 @@ import (
 
 type Read struct {
 	PasswordId     int
+	Title          string
 	Secret         string
 	List           bool
 	Open           bool
@@ -32,6 +33,11 @@ func (r *Read) TakeInputs(args []cla.Input) {
 
 			r.PasswordId = passwordId
 		}
+
+		if i2.Argument == "t" || i2.Argument == "title" {
+			r.Title = i2.Value
+		}
+
 		if i2.Argument == "list" {
 			r.List = true
 		}
@@ -51,15 +57,18 @@ func (r *Read) TakeInputs(args []cla.Input) {
 }
 
 func (r *Read) HandleInputs(userId int) {
-	if r.PasswordId == 0 && (r.Open || r.Copy) {
+	if (r.PasswordId == 0 && r.Title == "") && (r.Open || r.Copy) {
 		fmt.Println(GetErrors(2))
 		os.Exit(2)
 	}
 
-	if r.PasswordId != 0 || r.Open || r.Copy || r.Secret != "" {
-		fmt.Println(GetErrors(3))
-		os.Exit(3)
-	} else {
-		List(userId)
+	if r.List {
+		if r.PasswordId != 0 || r.Title != "" || r.Open || r.Copy || r.Secret != "" {
+			fmt.Println(GetErrors(3))
+			os.Exit(3)
+		} else {
+			List(userId)
+		}
 	}
+
 }

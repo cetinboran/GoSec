@@ -60,7 +60,8 @@ func main() {
 
 	Read := cla.ModInit()
 	Read.SetUsage("Password's Read Mode", "You can read your password in this field.", []string{"Example"})
-	Read.AddOption("-i,--id", false, "You need to enter password id")
+	Read.AddOption("-i,--id", false, "You can choose from password id")
+	Read.AddOption("-t,--title", false, "You can choose from title of your password")
 	Read.AddOption("-s, --secret", false, "Enter your secret.")
 	Read.AddOption("--list", true, "Shows Your Password")
 	Read.AddOption("--open", true, "Opens the url in browser.")

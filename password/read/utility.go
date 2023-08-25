@@ -15,11 +15,10 @@ func GetSecretRequired(userId int) bool {
 }
 
 func List(userId int) {
-	PasswordT := database.GosecDb.Tables["password"]
-	Passwords := PasswordT.Find("userId", userId)
+	passwords := getPasswords(userId)
 
 	fmt.Println("\nYour passwords are listed below. Enter the initial ids for -i / --id. Other commands work with -i / --id")
-	ListWriter(Passwords)
+	ListWriter(passwords)
 }
 
 // Password Writer
@@ -47,4 +46,11 @@ func ListWriter(Passwords []map[string]interface{}) {
 	}
 
 	fmt.Println(builder.String())
+}
+
+func getPasswords(userId int) []map[string]interface{} {
+	passwordsT := database.GosecDb.Tables["password"]
+	passwords := passwordsT.Find("userId", userId)
+
+	return passwords
 }
