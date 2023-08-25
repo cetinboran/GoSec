@@ -7,7 +7,7 @@ import (
 
 	"github.com/cetinboran/gosec/config"
 	"github.com/cetinboran/gosec/key"
-	"github.com/cetinboran/gosec/password"
+	"github.com/cetinboran/gosec/password/create"
 	"github.com/cetinboran/gosec/register"
 )
 
@@ -28,11 +28,8 @@ func SendInput(args []cla.Input) {
 	case "key":
 		key.Start(args)
 		break
-	case "password":
-		password.Start(args)
-		break
 	case "create":
-		password.Start(args)
+		create.Start(args)
 		break
 	}
 }

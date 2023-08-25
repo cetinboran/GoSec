@@ -1,4 +1,4 @@
-package password
+package create
 
 func GetErrors(errorId int) string {
 	switch errorId {
