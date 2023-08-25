@@ -22,7 +22,7 @@ func GetSecretRequired(userId int) bool {
 func List(userId int) {
 	passwords := getPasswords(userId)
 
-	fmt.Println("\nYour passwords are listed below. Enter the initial ids for -i / --id. Other commands work with -i / --id")
+	fmt.Println("\nYour passwords are listed below. Enter the initial ids for -i / --id. Other commands work with -i / --id or -t / --title")
 	ListWriter(passwords)
 }
 
