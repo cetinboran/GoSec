@@ -125,9 +125,13 @@ func Open(r *Read) {
 		os.Exit(9)
 	}
 
-	if strings.HasSuffix(passwordUrl, ";") {
-		fmt.Println(GetErrors(10))
-		os.Exit(10)
+	blacklistSuffix := []string{";", "//", "|", "||", "&&", "&", "/"}
+
+	for _, v := range blacklistSuffix {
+		if strings.HasSuffix(passwordUrl, v) {
+			fmt.Println(GetErrors(10))
+			os.Exit(10)
+		}
 	}
 
 	cmd := exec.Command("cmd", "/c", "start", "chrome", passwordUrl) // Tarayıcı ve URL'yi burada belirtin
