@@ -70,13 +70,20 @@ func (p *Password) CheckInputs() {
 	}
 
 	if p.Url == "" {
-		p.Url = "Url"
+		p.Url = "https://www.google.com"
 	}
 }
 
 func (p *Password) Save() {
 	// userId yi global ın auth fonksiyonundan alıyoruz.
 	PasswordT := database.GosecDb.Tables["password"]
+
+	// Eğer title default modundaysa yanına password ıd sini de ekleyip kaydediyoruz
+	// Böylelikle --generate istenilen zamanda kullanılabilir sıkıntı çıkmaz.
+	if p.Title == "Title" {
+		passwordId := fmt.Sprint(len(PasswordT.Get()) + 1)
+		p.Title += " " + passwordId
+	}
 
 	ConfigT := database.GosecDb.Tables["config"]
 

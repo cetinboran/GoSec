@@ -16,6 +16,12 @@ func GetErrors(errorId int) string {
 		return "Invalid Secret!"
 	case 7:
 		return "To use --open you must enter --id or --title"
+	case 8:
+		return "Error while running chrome. Check if Chrome is installed"
+	case 9:
+		return "Url must start with https:// "
+	case 10:
+		return "Command injection detected. Log entry recorded."
 	}
 
 	return ""

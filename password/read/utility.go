@@ -3,6 +3,7 @@ package read
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"strings"
 
 	"github.com/cetinboran/gosec/database"
@@ -61,7 +62,6 @@ func getPasswords(userId int) []map[string]interface{} {
 
 func Copy(r *Read) {
 	// Password ve Config Table'ına eriştim.
-	PasswordsT := database.GosecDb.Tables["password"]
 	ConfigT := database.GosecDb.Tables["config"]
 
 	if r.SecretRequired && r.Secret == "" {
@@ -70,13 +70,7 @@ func Copy(r *Read) {
 	}
 
 	// Aradığım Passwordu table dan çektim passwordId veya title kullanarak
-	passwordMap := make([]map[string]interface{}, 3)
-	if r.PasswordId != 0 {
-		passwordMap = PasswordsT.Find("passwordId", r.PasswordId)
-	}
-	if r.Title != "" {
-		passwordMap = PasswordsT.Find("title", r.Title)
-	}
+	passwordMap := getPasswordsIdOrTitle(r.PasswordId, r.Title)
 
 	user := ConfigT.Find("userId", r.userId)
 
@@ -118,5 +112,42 @@ func Copy(r *Read) {
 }
 
 func Open(r *Read) {
+	// eğer otomatik giriş yapmasını istiyorsan "github.com/chromedp/chromedp" ile yapmak daha kolay.
+	// Girilen url ye filter koymalısın garanti olsun.
 
+	passwordMap := getPasswordsIdOrTitle(r.PasswordId, r.Title)
+
+	passwordUrl := passwordMap[0]["url"].(string)
+	passwordUrl = strings.TrimSpace(passwordUrl)
+
+	if !strings.HasPrefix(passwordUrl, "https://") {
+		fmt.Println(GetErrors(9))
+		os.Exit(9)
+	}
+
+	if strings.HasSuffix(passwordUrl, ";") {
+		fmt.Println(GetErrors(10))
+		os.Exit(10)
+	}
+
+	cmd := exec.Command("cmd", "/c", "start", "chrome", passwordUrl) // Tarayıcı ve URL'yi burada belirtin
+	err := cmd.Start()
+	if err != nil {
+		fmt.Println(GetErrors(8))
+		os.Exit(8)
+	}
+}
+
+func getPasswordsIdOrTitle(passwordId int, title string) []map[string]interface{} {
+	PasswordsT := database.GosecDb.Tables["password"]
+
+	passwordMap := make([]map[string]interface{}, 3)
+	if passwordId != 0 {
+		passwordMap = PasswordsT.Find("passwordId", passwordId)
+	}
+	if title != "" {
+		passwordMap = PasswordsT.Find("title", title)
+	}
+
+	return passwordMap
 }

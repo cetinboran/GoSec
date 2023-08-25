@@ -86,8 +86,8 @@ func (r *Read) HandleInputs() {
 
 	if r.Open {
 		if r.PasswordId == 0 && r.Title == "" {
-			fmt.Println(GetErrors(4))
-			os.Exit(4)
+			fmt.Println(GetErrors(7))
+			os.Exit(7)
 		} else {
 			Open(r)
 		}
