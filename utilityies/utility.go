@@ -57,7 +57,7 @@ func GenerateKey(length int) string {
 	lower := "abcdefghijklmnopqrstuvwxyz"
 	upper := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	numbers := "0123456789"
-	specialChars := "!@#$%^&*()_-+=[]{}|;:,.<>?/~"
+	specialChars := "!@#$%^*()_-+=[]{}|;:,.<>?/~"
 
 	seed := time.Now().UnixNano()
 	source := rand.NewSource(seed)

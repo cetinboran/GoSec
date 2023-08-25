@@ -9,7 +9,7 @@ func GetErrors(errorId int) string {
 	case 3:
 		return "--list command can be used alone"
 	case 4:
-		return "To use --copy you must enter --id or --title and --secret"
+		return "To use --copy you must enter --id, --title and --secret"
 	case 5:
 		return "To use --copy you must enter --secret. This is for extra security\nYou can disable it at config."
 	case 6:

@@ -58,7 +58,7 @@ func main() {
 	Create.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.")
 	Create.AddOption("-u,--url", false, "Enter where this password is being used")
 	Create.AddOption("-p,--pass", false, "Enter the password")
-	Create.AddOption("--generate", true, "Creates Password For You.")
+	Create.AddOption("--generate", true, "Creates Password For You. 16 chars")
 
 	Read := cla.ModInit()
 	Read.SetUsage("Password's Read Mode", "You can read your password in this field.", []string{"Example"})

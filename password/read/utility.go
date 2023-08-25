@@ -158,11 +158,19 @@ func getValidPasswordId(userId int) []int {
 func checkValidPasswordId(userId int, PasswordId int) {
 	validIds := getValidPasswordId(userId)
 
+	check := false
 	for _, v := range validIds {
 		if v != PasswordId {
-			fmt.Println(GetErrors(11))
-			os.Exit(11)
+			check = false
+		} else {
+			check = true
+			break
 		}
+	}
+
+	if !check {
+		fmt.Println(GetErrors(11))
+		os.Exit(11)
 	}
 }
 
