@@ -19,7 +19,6 @@ func main() {
 	Setup := cla.Init()
 	Setup.SetTitle("GoSec")
 	Setup.SetDescription("A terminal-based password manager application that securely stores and manages passwords through simple commands.\nFeel free to create an account through the 'register' command. The password you set while signing up can also grant you access to other moderators.")
-
 	// Login olunca true olsun jsonda ve onu kaydet. true ise diğer komutarı çalıştırmasına izin ver. logout atınca false yap çalıştıramasın başkası.
 
 	// Register Mode
