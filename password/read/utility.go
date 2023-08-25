@@ -59,28 +59,34 @@ func getPasswords(userId int) []map[string]interface{} {
 }
 
 func Copy(userId int, passwordId int, title string) {
+	// Password ve Config Table'ına eriştim.
 	PasswordsT := database.GosecDb.Tables["password"]
 	ConfigT := database.GosecDb.Tables["config"]
 
+	// Aradığım Passwordu table dan çektim passwordId veya title kullanarak
 	passwordMap := make([]map[string]interface{}, 3)
 	if passwordId != 0 {
 		passwordMap = PasswordsT.Find("passwordId", passwordId)
 	}
-
 	if title != "" {
 		passwordMap = PasswordsT.Find("title", title)
 	}
 
+	// Şuan programı kullanan user'ın bilgilerini çektim. Secret'a ulaşıcaz
 	user := ConfigT.Find("userId", userId)
+
+	// Config dosyasından user'ın secretını çektim
+	// Bununla password'un şifresini kırıcaz.
 	userSecret := user[0]["secret"].(string) // içindeki string olduğu için böyle yaparak string yaptım sonra byte a çevirdim diğer türlü hata alıyorum.
 
 	// Sonra şifrelenmiş olan user secret'ı önce decode atıyoruz.
 	decryptedUserSecret, _ := myencode.Decrypt(settings.GetSecretForSecrets(), userSecret)
 
 	cryptedPassword := passwordMap[0]["password"]
-
 	decryptedPassword, _ := myencode.Decrypt([]byte(decryptedUserSecret), cryptedPassword.(string))
 
 	fmt.Println("The Password: ", decryptedPassword)
+
+	// Şifreyi koypalıyoruz.
 	utilityies.CopyToClipboard(decryptedPassword)
 }
