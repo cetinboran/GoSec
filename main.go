@@ -56,16 +56,26 @@ func main() {
 	Create.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.")
 	Create.AddOption("-u,--url", false, "Enter where this password is being used")
 	Create.AddOption("-p,--pass", false, "Enter the password")
-	Create.AddOption("--create", true, "Creates Password For You.")
+	Create.AddOption("--generate", true, "Creates Password For You.")
+
+	Read := cla.ModInit()
+	Read.SetUsage("Password's Read Mode", "You can read your password in this field.", []string{"Example"})
+	Read.AddOption("-i,--id", false, "You need to enter password id")
+	Read.AddOption("-s, --secret", false, "Enter your secret.")
+	Read.AddOption("--list", true, "Shows Your Password")
+	Read.AddOption("--open", true, "Opens the url in browser.")
+	Read.AddOption("--copy", true, "Copies the password")
 
 	// Password Mode Init
 	Password.AddMode("create", &Create)
+	Password.AddMode("read", &Read)
 
 	// Global Option For Mods
 	Password.AddGlobalOption("-P", false, "Enter your password for using the program.")
 
 	// Password Mode Automatic Usage
 	Create.AutomaticUsage()
+	Read.AutomaticUsage()
 	// Password Mods Usage **********************************************************************
 
 	// Main Mode Init

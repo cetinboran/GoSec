@@ -36,7 +36,7 @@ func (p *Password) TakeInputs(args []cla.Input) {
 		if i2.Argument == "p" || i2.Argument == "pass" {
 			p.Password = i2.Value
 		}
-		if i2.Argument == "create" {
+		if i2.Argument == "generate" {
 			p.Create = i2.Value
 		}
 	}
@@ -89,6 +89,12 @@ func (p *Password) Save() {
 	// interface olduğu için userSecret değeri böyle casting yapılıyor.
 	// ardından decode edilmiş user secret ile şifreyi şifreliyoruz.
 	cryptedPassword, _ := myencode.Encrypt([]byte(decryptedUserSecret), p.Password)
+
+	// Eğer o title'dan başka var ise bu title kullanılıyor diyorum. Beliki şuanlık gereksiz olabilir ID den çekmek daha mantıklı
+	// if len(PasswordT.Find("title", p.Title)) != 0 {
+	// 	fmt.Println(GetErrors(4))
+	// 	os.Exit(4)
+	// }
 
 	// passwordId yi db de pk yaptığım için otomatik ayarlanacak
 	// sonra kayıt işlemi gerçekleştiriliyor.

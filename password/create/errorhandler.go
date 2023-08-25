@@ -8,6 +8,8 @@ func GetErrors(errorId int) string {
 		return "You must either enter a password with -p/--pass or turn on automatic password generation using --create option."
 	case 3:
 		return "Please do not use -p and --create at the same time."
+	case 4:
+		return "This title is being used, please enter another title."
 	}
 
 	return ""
