@@ -112,7 +112,7 @@ func Open(r *Read) {
 		os.Exit(9)
 	}
 
-	blacklistSuffix := []string{";", "//", "|", "||", "&&", "&", "/"}
+	blacklistSuffix := []string{";", "//", "|", "||", "&&", "&"}
 
 	for _, v := range blacklistSuffix {
 		if strings.HasSuffix(passwordUrl, v) {
@@ -155,6 +155,16 @@ func getValidPasswordId(userId int) []int {
 	return passwordIds
 }
 
+func getValidTitles(userId int) []string {
+	var passwordIds []string
+	passwords := GetPasswords(userId)
+
+	for _, v := range passwords {
+		passwordIds = append(passwordIds, v["title"].(string))
+	}
+	return passwordIds
+}
+
 func checkValidPasswordId(userId int, PasswordId int) {
 	validIds := getValidPasswordId(userId)
 
@@ -174,8 +184,37 @@ func checkValidPasswordId(userId int, PasswordId int) {
 	}
 }
 
+// Finds valid titles for database search.
+func checkValidTitle(userId int, title string) {
+	// Eğer yanlış title atarsa kullanıcı yakalamak istiyoruz yoksa error yeriz.
+	ValidTitles := getValidTitles(userId)
+
+	check := false
+	for _, v := range ValidTitles {
+		if v != title {
+			check = false
+		} else {
+			check = true
+			break
+		}
+	}
+
+	if !check {
+		fmt.Println(GetErrors(12))
+		os.Exit(12)
+	}
+}
+
 func getPasswordsIdOrTitle(userId int, passwordId int, title string) []map[string]interface{} {
-	checkValidPasswordId(userId, passwordId)
+	// Title boş ise title kontrol ediyor.
+	if passwordId != 0 && title == "" {
+		checkValidPasswordId(userId, passwordId)
+	}
+
+	if passwordId == 0 && title != "" {
+		checkValidTitle(userId, title)
+	}
+
 	PasswordsT := database.GosecDb.Tables["password"]
 
 	passwordMap := make([]map[string]interface{}, 3)

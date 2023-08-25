@@ -82,7 +82,7 @@ func (p *Password) Save() {
 	// Böylelikle --generate istenilen zamanda kullanılabilir sıkıntı çıkmaz.
 	if p.Title == "Title" {
 		passwordId := fmt.Sprint(len(PasswordT.Get()) + 1)
-		p.Title += " " + passwordId
+		p.Title += "-" + passwordId
 	}
 
 	ConfigT := database.GosecDb.Tables["config"]

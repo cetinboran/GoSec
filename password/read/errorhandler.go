@@ -24,6 +24,8 @@ func GetErrors(errorId int) string {
 		return "Command injection detected. Log entry recorded."
 	case 11:
 		return "Please enter a valid password id"
+	case 12:
+		return "Please enter a valid password title"
 	}
 
 	return ""

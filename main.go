@@ -49,7 +49,7 @@ func main() {
 	Password := cla.ModInit()
 	Password.SetTitle("Password Mode")
 	Password.SetDescription("This mod allows you to save your passwords.\nYou can even generate an automatic password")
-	Password.SetExamples([]string{"gosec password create -P <password> --create"})
+	Password.SetExamples([]string{"gosec password <mode name>"})
 
 	Create := cla.ModInit()
 	Create.SetTitle("Password's Create Mode")
