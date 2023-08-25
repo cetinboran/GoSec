@@ -69,9 +69,16 @@ func main() {
 	Read.AddOption("--open", true, "Opens the url in browser.")
 	Read.AddOption("--copy", true, "Copies the password")
 
+	Dump := cla.ModInit()
+	Dump.SetUsage("Password's Dump Mode", "You can dump all of your passwords in this field.", []string{"Example"})
+	Dump.AddOption("-s,--secret", false, "Enter your secret. For Extra Security.")
+	Dump.AddOption("--out", true, "Dumps All Of Your Passwords")
+	Dump.AddOption("-p,--path", false, "Add your out path.")
+
 	// Password Mode Init
 	Password.AddMode("create", &Create)
 	Password.AddMode("read", &Read)
+	Password.AddMode("dump", &Dump)
 
 	// Global Option For Mods
 	Password.AddGlobalOption("-P", false, "Enter your password for using the program.")
@@ -79,6 +86,7 @@ func main() {
 	// Password Mode Automatic Usage
 	Create.AutomaticUsage()
 	Read.AutomaticUsage()
+	Dump.AutomaticUsage()
 	// Password Mods Usage **********************************************************************
 
 	// Main Mode Init

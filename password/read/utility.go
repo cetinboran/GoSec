@@ -13,7 +13,7 @@ import (
 )
 
 func List(userId int) {
-	passwords := getPasswords(userId)
+	passwords := GetPasswords(userId)
 
 	fmt.Println("\nYour passwords are listed below. Enter the initial ids for -i / --id. Other commands work with -i / --id or -t / --title")
 	ListWriter(passwords)
@@ -138,7 +138,7 @@ func GetSecretRequired(userId int) bool {
 	return userSecretRequired.(bool)
 }
 
-func getPasswords(userId int) []map[string]interface{} {
+func GetPasswords(userId int) []map[string]interface{} {
 	passwordsT := database.GosecDb.Tables["password"]
 	passwords := passwordsT.Find("userId", userId)
 
@@ -147,7 +147,7 @@ func getPasswords(userId int) []map[string]interface{} {
 
 func getValidPasswordId(userId int) []int {
 	var passwordIds []int
-	passwords := getPasswords(userId)
+	passwords := GetPasswords(userId)
 
 	for _, v := range passwords {
 		passwordIds = append(passwordIds, int(v["passwordId"].(float64)))
