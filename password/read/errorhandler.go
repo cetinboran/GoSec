@@ -5,9 +5,11 @@ func GetErrors(errorId int) string {
 	case 1:
 		return "You have to enter an integer in -i/--id"
 	case 2:
-		return "To use --open and --copy you must enter --id/--title and --secret. Use config mode to turn off the --secret request"
+		return "To use --open you must enter --id or --title"
 	case 3:
 		return "--list command can be used alone"
+	case 4:
+		return "To use --copy you must enter --id or --title and --secret"
 	}
 
 	return ""

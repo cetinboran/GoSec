@@ -9,6 +9,7 @@ import (
 )
 
 type Read struct {
+	userId         int
 	PasswordId     int
 	Title          string
 	Secret         string
@@ -19,7 +20,7 @@ type Read struct {
 }
 
 func ReadInit(userId int) *Read {
-	return &Read{SecretRequired: GetSecretRequired(userId)}
+	return &Read{SecretRequired: GetSecretRequired(userId), userId: userId}
 }
 
 func (r *Read) TakeInputs(args []cla.Input) {
@@ -31,6 +32,7 @@ func (r *Read) TakeInputs(args []cla.Input) {
 				os.Exit(1)
 			}
 
+			// Burada gelen id 0 dan küçük veya 0 ise hata döndür.
 			r.PasswordId = passwordId
 		}
 
@@ -56,19 +58,29 @@ func (r *Read) TakeInputs(args []cla.Input) {
 	}
 }
 
-func (r *Read) HandleInputs(userId int) {
-	if (r.PasswordId == 0 && r.Title == "") && (r.Open || r.Copy) {
-		fmt.Println(GetErrors(2))
-		os.Exit(2)
-	}
-
+func (r *Read) HandleInputs() {
 	if r.List {
 		if r.PasswordId != 0 || r.Title != "" || r.Open || r.Copy || r.Secret != "" {
 			fmt.Println(GetErrors(3))
 			os.Exit(3)
 		} else {
-			List(userId)
+			List(r.userId)
 		}
 	}
 
+	if r.Open {
+		if r.PasswordId == 0 && r.Title == "" {
+			fmt.Println(GetErrors(2))
+			os.Exit(2)
+		}
+	}
+
+	if r.Copy {
+		if r.PasswordId == 0 && r.Title == "" {
+			fmt.Println(GetErrors(4))
+			os.Exit(4)
+		} else {
+			Copy(r.userId, r.PasswordId, r.Title)
+		}
+	}
 }

@@ -5,6 +5,9 @@ import (
 	"strings"
 
 	"github.com/cetinboran/gosec/database"
+	"github.com/cetinboran/gosec/myencode"
+	"github.com/cetinboran/gosec/settings"
+	"github.com/cetinboran/gosec/utilityies"
 )
 
 func GetSecretRequired(userId int) bool {
@@ -53,4 +56,31 @@ func getPasswords(userId int) []map[string]interface{} {
 	passwords := passwordsT.Find("userId", userId)
 
 	return passwords
+}
+
+func Copy(userId int, passwordId int, title string) {
+	PasswordsT := database.GosecDb.Tables["password"]
+	ConfigT := database.GosecDb.Tables["config"]
+
+	passwordMap := make([]map[string]interface{}, 3)
+	if passwordId != 0 {
+		passwordMap = PasswordsT.Find("passwordId", passwordId)
+	}
+
+	if title != "" {
+		passwordMap = PasswordsT.Find("title", title)
+	}
+
+	user := ConfigT.Find("userId", userId)
+	userSecret := user[0]["secret"].(string) // içindeki string olduğu için böyle yaparak string yaptım sonra byte a çevirdim diğer türlü hata alıyorum.
+
+	// Sonra şifrelenmiş olan user secret'ı önce decode atıyoruz.
+	decryptedUserSecret, _ := myencode.Decrypt(settings.GetSecretForSecrets(), userSecret)
+
+	cryptedPassword := passwordMap[0]["password"]
+
+	decryptedPassword, _ := myencode.Decrypt([]byte(decryptedUserSecret), cryptedPassword.(string))
+
+	fmt.Println("The Password: ", decryptedPassword)
+	utilityies.CopyToClipboard(decryptedPassword)
 }

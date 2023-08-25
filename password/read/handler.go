@@ -9,6 +9,6 @@ func Start(args []cla.Input) {
 	userId := global.Auth(args)
 	newRead := ReadInit(userId)
 	newRead.TakeInputs(args)
-	newRead.HandleInputs(userId)
+	newRead.HandleInputs()
 
 }
