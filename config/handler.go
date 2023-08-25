@@ -8,6 +8,7 @@ import (
 func Start(args []cla.Input) {
 	// Auth Check
 	userId := global.Auth(args)
+
 	newConfig := ConfigInit(userId)
 	newConfig.TakeInputs(args)
 	newConfig.HandleInputs()

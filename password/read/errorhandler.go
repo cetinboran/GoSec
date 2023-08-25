@@ -22,6 +22,8 @@ func GetErrors(errorId int) string {
 		return "Url must start with https:// "
 	case 10:
 		return "Command injection detected. Log entry recorded."
+	case 11:
+		return "Please enter a valid password id"
 	}
 
 	return ""

@@ -12,13 +12,6 @@ import (
 	"github.com/cetinboran/gosec/utilityies"
 )
 
-func GetSecretRequired(userId int) bool {
-	configT := database.GosecDb.Tables["config"]
-	userSecretRequired := configT.Find("userId", userId)[0]["secretrequired"]
-
-	return userSecretRequired.(bool)
-}
-
 func List(userId int) {
 	passwords := getPasswords(userId)
 
@@ -53,13 +46,7 @@ func ListWriter(Passwords []map[string]interface{}) {
 	fmt.Println(builder.String())
 }
 
-func getPasswords(userId int) []map[string]interface{} {
-	passwordsT := database.GosecDb.Tables["password"]
-	passwords := passwordsT.Find("userId", userId)
-
-	return passwords
-}
-
+// Copies plain text password after security check
 func Copy(r *Read) {
 	// Password ve Config Table'ına eriştim.
 	ConfigT := database.GosecDb.Tables["config"]
@@ -70,7 +57,7 @@ func Copy(r *Read) {
 	}
 
 	// Aradığım Passwordu table dan çektim passwordId veya title kullanarak
-	passwordMap := getPasswordsIdOrTitle(r.PasswordId, r.Title)
+	passwordMap := getPasswordsIdOrTitle(r.userId, r.PasswordId, r.Title)
 
 	user := ConfigT.Find("userId", r.userId)
 
@@ -115,7 +102,7 @@ func Open(r *Read) {
 	// eğer otomatik giriş yapmasını istiyorsan "github.com/chromedp/chromedp" ile yapmak daha kolay.
 	// Girilen url ye filter koymalısın garanti olsun.
 
-	passwordMap := getPasswordsIdOrTitle(r.PasswordId, r.Title)
+	passwordMap := getPasswordsIdOrTitle(r.userId, r.PasswordId, r.Title)
 
 	passwordUrl := passwordMap[0]["url"].(string)
 	passwordUrl = strings.TrimSpace(passwordUrl)
@@ -142,7 +129,45 @@ func Open(r *Read) {
 	}
 }
 
-func getPasswordsIdOrTitle(passwordId int, title string) []map[string]interface{} {
+// HELPER FUNCTIONS
+
+func GetSecretRequired(userId int) bool {
+	configT := database.GosecDb.Tables["config"]
+	userSecretRequired := configT.Find("userId", userId)[0]["secretrequired"]
+
+	return userSecretRequired.(bool)
+}
+
+func getPasswords(userId int) []map[string]interface{} {
+	passwordsT := database.GosecDb.Tables["password"]
+	passwords := passwordsT.Find("userId", userId)
+
+	return passwords
+}
+
+func getValidPasswordId(userId int) []int {
+	var passwordIds []int
+	passwords := getPasswords(userId)
+
+	for _, v := range passwords {
+		passwordIds = append(passwordIds, int(v["passwordId"].(float64)))
+	}
+	return passwordIds
+}
+
+func checkValidPasswordId(userId int, PasswordId int) {
+	validIds := getValidPasswordId(userId)
+
+	for _, v := range validIds {
+		if v != PasswordId {
+			fmt.Println(GetErrors(11))
+			os.Exit(11)
+		}
+	}
+}
+
+func getPasswordsIdOrTitle(userId int, passwordId int, title string) []map[string]interface{} {
+	checkValidPasswordId(userId, passwordId)
 	PasswordsT := database.GosecDb.Tables["password"]
 
 	passwordMap := make([]map[string]interface{}, 3)

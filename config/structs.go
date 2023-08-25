@@ -53,21 +53,12 @@ func (c *Config) HandleInputs() {
 	}
 
 	if c.Secret != "" && c.SetSecretRequired == "" {
-		var choice string
-
 		if len(c.Secret) != 16 && len(c.Secret) != 24 && len(c.Secret) != 32 {
 			fmt.Println(GetErrors(1))
 			os.Exit(1)
 		}
 
-		// Burayı sonradan otomatikleştir şuanlık şifreleri kaydettiğin bir yer yok.
-		fmt.Println("If you haven't already obtained the encrypted versions of all passwords from the dump mode, when the 'secret' changes,\nall passwords become unusable.")
-		fmt.Print("Are you sure? (Y/N): ")
-		fmt.Scan(&choice)
-
-		if choice == "Y" || choice == "y" {
-			setKey(c.UserId, c.Secret)
-		}
+		setKey(c.UserId, c.Secret)
 	}
 
 	if c.Secret != "" && c.SetSecretRequired != "" {
