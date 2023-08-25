@@ -11,9 +11,10 @@ import (
 
 // Config Id yazmadım otomatik eklenicek DB ye zaten bu struct kolaylık için
 type Config struct {
-	UserId   int // Veriyi json dan çekiyoruz. Jsonda sayıları float64 yapıyor.
-	Secret   string
-	Password string
+	UserId         int // Veriyi json dan çekiyoruz. Jsonda sayıları float64 yapıyor.
+	Secret         string
+	Password       string
+	SecretRequired bool
 }
 
 func ConfigInit(userId int) *Config {
@@ -62,6 +63,6 @@ func (c *Config) HandleInputs() {
 func CreateConfig(userId int, secret string) {
 	myDb := database.GosecDb
 
-	data := gojson.DataInit([]string{"userId", "secret"}, []interface{}{userId, secret}, myDb.Tables["config"])
+	data := gojson.DataInit([]string{"userId", "secret", "secretrequired"}, []interface{}{userId, secret, true}, myDb.Tables["config"])
 	myDb.Tables["config"].Save(data)
 }

@@ -20,6 +20,7 @@ func DatabaseInit() {
 	ConfigT.AddProperty("configId", "int", "PK")
 	ConfigT.AddProperty("userId", "int", "")
 	ConfigT.AddProperty("secret", "string", "")
+	ConfigT.AddProperty("secretrequired", "bool", "")
 
 	// Passwords Table
 	PasswordsT := gojson.CreateTable("password")
