@@ -6,7 +6,7 @@ func Start(args []cla.Input) {
 	newRegister := RegisterInit()
 	newRegister.TakeInput(args)
 	newRegister.CheckInputs()
-	newRegister.Save()
+	newRegister.HandleInputs()
 
 	// Save attıktan sonra user için config dosyası oluşturduk.
 	newRegister.CreateConfig()

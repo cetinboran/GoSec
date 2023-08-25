@@ -30,6 +30,7 @@ func main() {
 	Register.AddOption("-p, --pass", false, "Enter Your Password")
 	Register.AddOption("-cp, --cpass", false, "Confirm Your Password")
 	Register.AddOption("-s, --secret", false, "Enter Your Secret")
+	Register.AddOption("-gen,--generate", false, "Sets Secret Key Automaticly")
 
 	// Config Mode
 	Config := cla.ModInit()
