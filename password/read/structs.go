@@ -80,7 +80,7 @@ func (r *Read) HandleInputs() {
 			fmt.Println(GetErrors(4))
 			os.Exit(4)
 		} else {
-			Copy(r.userId, r.PasswordId, r.Title)
+			Copy(r.userId, r.PasswordId, r.Title, r.Secret, r.SecretRequired)
 		}
 	}
 }

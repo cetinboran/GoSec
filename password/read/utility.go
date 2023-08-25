@@ -2,6 +2,7 @@ package read
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/cetinboran/gosec/database"
@@ -58,10 +59,15 @@ func getPasswords(userId int) []map[string]interface{} {
 	return passwords
 }
 
-func Copy(userId int, passwordId int, title string) {
+func Copy(userId int, passwordId int, title string, secret string, secretRequired bool) {
 	// Password ve Config Table'ına eriştim.
 	PasswordsT := database.GosecDb.Tables["password"]
 	ConfigT := database.GosecDb.Tables["config"]
+
+	if secretRequired && secret == "" {
+		fmt.Println(GetErrors(5))
+		os.Exit(5)
+	}
 
 	// Aradığım Passwordu table dan çektim passwordId veya title kullanarak
 	passwordMap := make([]map[string]interface{}, 3)
@@ -72,7 +78,6 @@ func Copy(userId int, passwordId int, title string) {
 		passwordMap = PasswordsT.Find("title", title)
 	}
 
-	// Şuan programı kullanan user'ın bilgilerini çektim. Secret'a ulaşıcaz
 	user := ConfigT.Find("userId", userId)
 
 	// Config dosyasından user'ın secretını çektim
@@ -81,6 +86,27 @@ func Copy(userId int, passwordId int, title string) {
 
 	// Sonra şifrelenmiş olan user secret'ı önce decode atıyoruz.
 	decryptedUserSecret, _ := myencode.Decrypt(settings.GetSecretForSecrets(), userSecret)
+
+	if secretRequired {
+		if len(secret) != 16 && len(secret) == 24 && len(secret) == 32 {
+			fmt.Println(GetErrors(6))
+			os.Exit(6)
+		}
+
+		if secret != decryptedUserSecret {
+			fmt.Println(GetErrors(6))
+			os.Exit(6)
+		}
+
+		cryptedPassword := passwordMap[0]["password"]
+		decryptedPassword, _ := myencode.Decrypt([]byte(decryptedUserSecret), cryptedPassword.(string))
+
+		fmt.Println("The Password: ", decryptedPassword)
+
+		// Şifreyi koypalıyoruz.
+		utilityies.CopyToClipboard(decryptedPassword)
+		return
+	}
 
 	cryptedPassword := passwordMap[0]["password"]
 	decryptedPassword, _ := myencode.Decrypt([]byte(decryptedUserSecret), cryptedPassword.(string))
