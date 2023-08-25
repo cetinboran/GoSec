@@ -14,6 +14,8 @@ func GetErrors(errorId int) string {
 		return "To use --copy you must enter --secret. This is for extra security\nYou can disable it at config."
 	case 6:
 		return "Invalid Secret!"
+	case 7:
+		return "To use --open you must enter --id or --title"
 	}
 
 	return ""

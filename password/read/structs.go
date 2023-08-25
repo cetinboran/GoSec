@@ -80,7 +80,16 @@ func (r *Read) HandleInputs() {
 			fmt.Println(GetErrors(4))
 			os.Exit(4)
 		} else {
-			Copy(r.userId, r.PasswordId, r.Title, r.Secret, r.SecretRequired)
+			Copy(r)
+		}
+	}
+
+	if r.Open {
+		if r.PasswordId == 0 && r.Title == "" {
+			fmt.Println(GetErrors(4))
+			os.Exit(4)
+		} else {
+			Open(r)
 		}
 	}
 }
