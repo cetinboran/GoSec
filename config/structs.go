@@ -58,7 +58,7 @@ func (c *Config) HandleInputs() {
 			os.Exit(1)
 		}
 
-		setKey(c.UserId, c.Secret)
+		setKey(c.UserId, c.Secret, c.SetSecretRequired)
 	}
 
 	if c.Secret != "" && c.SetSecretRequired != "" {

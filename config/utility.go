@@ -57,8 +57,17 @@ func changeTheSecretOfPasswords(userId int, newSecret string) {
 	}
 }
 
-func setKey(userId int, secret string) {
+func setKey(userId int, secret string, required string) {
 	changeTheSecretOfPasswords(userId, secret)
+
+	boolValue := false
+
+	if required == "true" || required == "True" {
+		boolValue = true
+	} else if required == "false" || required == "False" {
+		boolValue = false
+	}
+
 	// Gelen secret'ı şifreliyoruz
 	encrypedSecret, _ := myencode.Encrypt(settings.GetSecretForSecrets(), secret)
 
@@ -66,7 +75,7 @@ func setKey(userId int, secret string) {
 	configT := database.GosecDb.Tables["config"]
 
 	// Yeni bilgileri yazıyoruz.
-	newData := gojson.DataInit([]string{"secret", "secretrequired"}, []interface{}{encrypedSecret, true}, configT)
+	newData := gojson.DataInit([]string{"secret", "secretrequired"}, []interface{}{encrypedSecret, boolValue}, configT)
 
 	// Table'a update atıyoruz.
 	configT.Update("userId", userId, newData)
@@ -89,4 +98,6 @@ func setSecretReq(userId int, secretReqValue string) {
 
 	// hata olmadığı halde değişmiyorsa o değişme tipi gojsonda yoktur büyük ihtimalle eklersin.
 	configT.Update("userId", userId, newData)
+
+	fmt.Println("The Secret Key Required has been successfully changed.")
 }
