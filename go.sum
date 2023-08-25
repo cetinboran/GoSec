@@ -1,4 +1,4 @@
 github.com/cetinboran/goarg v1.1.0-3 h1:ceKiajAPYY3qt88zJp4NhIstKjS3TZSeZig+dN+4JV0=
 github.com/cetinboran/goarg v1.1.0-3/go.mod h1:rZunXhucZDNTdjZd7gYFOiapb8qoKY3qcLo/PMFBjUM=
-github.com/cetinboran/gojson v1.0.5 h1:sJ7aL/m5NQ0t5M9S6mbM6hUwPzbAaqeF0C67CYev84E=
-github.com/cetinboran/gojson v1.0.5/go.mod h1:tHT8aymKPzyYbK+9Ab19lw2fvAMsHMeEeUYUu/obQNE=
+github.com/cetinboran/gojson v1.0.5-1 h1:kfRY9efhBpQ4R8qDGhCEMisyverBc7C5s4XRsW6cyGI=
+github.com/cetinboran/gojson v1.0.5-1/go.mod h1:tHT8aymKPzyYbK+9Ab19lw2fvAMsHMeEeUYUu/obQNE=

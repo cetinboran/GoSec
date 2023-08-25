@@ -11,10 +11,11 @@ import (
 
 // Config Id yazmadım otomatik eklenicek DB ye zaten bu struct kolaylık için
 type Config struct {
-	UserId         int // Veriyi json dan çekiyoruz. Jsonda sayıları float64 yapıyor.
-	Secret         string
-	Password       string
-	SecretRequired bool
+	UserId            int // Veriyi json dan çekiyoruz. Jsonda sayıları float64 yapıyor.
+	Secret            string
+	Password          string
+	SecretRequired    bool
+	SetSecretRequired string
 }
 
 func ConfigInit(userId int) *Config {
@@ -32,21 +33,32 @@ func (c *Config) TakeInputs(args []cla.Input) {
 		if i2.Argument == "P" {
 			c.Password = i2.Value
 		}
-	}
-}
 
-func (c *Config) CheckInputs() {
-	if len(c.Secret) != 16 && len(c.Secret) != 24 && len(c.Secret) != 32 {
-		fmt.Println(GetErrors(1))
-		os.Exit(1)
+		if i2.Argument == "req" || i2.Argument == "required" {
+			if i2.Value == "true" || i2.Value == "True" {
+				c.SetSecretRequired = i2.Value
+			} else if i2.Value == "false" || i2.Value == "False" {
+				c.SetSecretRequired = i2.Value
+			} else {
+				fmt.Println(GetErrors(3))
+				os.Exit(3)
+			}
+		}
 	}
 }
 
 func (c *Config) HandleInputs() {
-	// Burada böyle kontrol edicem. Mesela code limit diye bir config varsa configde ve struct içine take ınputs ile geldiyse if içinde eğer codelimit != "" ise uyarı versin dicem.
-	// Birden fazla fonk. olabileceği için utiltly.go açıp oraya koydum.
-	if c.Secret != "" {
+	if c.Secret == "" && c.SetSecretRequired != "" {
+		setSecretReq(c.UserId, c.SetSecretRequired)
+	}
+
+	if c.Secret != "" && c.SetSecretRequired == "" {
 		var choice string
+
+		if len(c.Secret) != 16 && len(c.Secret) != 24 && len(c.Secret) != 32 {
+			fmt.Println(GetErrors(1))
+			os.Exit(1)
+		}
 
 		// Burayı sonradan otomatikleştir şuanlık şifreleri kaydettiğin bir yer yok.
 		fmt.Println("If you haven't already obtained the encrypted versions of all passwords from the dump mode, when the 'secret' changes,\nall passwords become unusable.")
@@ -57,6 +69,12 @@ func (c *Config) HandleInputs() {
 			setKey(c.UserId, c.Secret)
 		}
 	}
+
+	if c.Secret != "" && c.SetSecretRequired != "" {
+		fmt.Println(GetErrors(2))
+		os.Exit(2)
+	}
+
 }
 
 // This function just for register.

@@ -24,3 +24,20 @@ func setKey(userId int, secret string) {
 
 	fmt.Println("The secret key has been successfully changed.")
 }
+
+func setSecretReq(userId int, secretReqValue string) {
+	configT := database.GosecDb.Tables["config"]
+
+	boolValue := false
+
+	if secretReqValue == "true" || secretReqValue == "True" {
+		boolValue = true
+	} else if secretReqValue == "false" || secretReqValue == "False" {
+		boolValue = false
+	}
+
+	newData := gojson.DataInit([]string{"secretrequired"}, []interface{}{boolValue}, configT)
+
+	// hata olmadığı halde değişmiyorsa o değişme tipi gojsonda yoktur büyük ihtimalle eklersin.
+	configT.Update("userId", userId, newData)
+}

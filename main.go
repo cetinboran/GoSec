@@ -36,6 +36,7 @@ func main() {
 	Config.SetTitle("Config Mode")
 	Config.SetExamples([]string{"Example 1", "Example 2"})
 	Config.AddOption("-k, --key", false, "Sets The Secret Key")
+	Config.AddOption("-req,--required", false, "Sets the Secret Required true / false. Secret Required is the additional Security.")
 
 	// Key Mode
 	Key := cla.ModInit()
