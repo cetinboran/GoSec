@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	cla "github.com/cetinboran/goarg/CLA"
-	"github.com/cetinboran/gosec/database"
 )
 
 type Read struct {
@@ -19,10 +18,7 @@ type Read struct {
 }
 
 func ReadInit(userId int) *Read {
-	configT := database.GosecDb.Tables["config"]
-	userSecretRequired := configT.Find("userId", userId)[0]["secretrequired"]
-
-	return &Read{SecretRequired: userSecretRequired.(bool)}
+	return &Read{SecretRequired: GetSecretRequired(userId)}
 }
 
 func (r *Read) TakeInputs(args []cla.Input) {
@@ -47,12 +43,23 @@ func (r *Read) TakeInputs(args []cla.Input) {
 		if i2.Argument == "copy" {
 			r.Copy = true
 		}
+
+		if i2.Argument == "s" || i2.Argument == "secret" {
+			r.Secret = i2.Value
+		}
 	}
 }
 
-func (r *Read) CheckInputs() {
+func (r *Read) HandleInputs(userId int) {
 	if r.PasswordId == 0 && (r.Open || r.Copy) {
 		fmt.Println(GetErrors(2))
-		os.Exit(1)
+		os.Exit(2)
+	}
+
+	if r.PasswordId != 0 || r.Open || r.Copy || r.Secret != "" {
+		fmt.Println(GetErrors(3))
+		os.Exit(3)
+	} else {
+		List(userId)
 	}
 }
