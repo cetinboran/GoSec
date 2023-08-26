@@ -1,9 +1,9 @@
 package dump
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/cetinboran/gosec/database"
 	"github.com/cetinboran/gosec/myencode"
@@ -38,28 +38,38 @@ func Out(d *Dump) {
 		passwords[i]["password"] = decryptedPassword
 	}
 
-	filePath := d.Path + "out.json"
+	filePath := d.Path + "out.txt"
+	dataStr := mapSliceToString(passwords)
 
-	// JSON verilerini oluştur/ Indent insanların okuyabilmesi için.
-	jsonData, err := json.MarshalIndent(passwords, "", "  ")
+	err := os.WriteFile(filePath, []byte(dataStr), 0644)
 	if err != nil {
-		fmt.Println("An error occurred while generating the JSON")
-		return
-	}
-
-	// JSON verilerini dosyaya yaz
-	file, err := os.Create(filePath)
-	if err != nil {
-		fmt.Println("An error occurred while creating the file")
-		return
-	}
-	defer file.Close()
-
-	_, err = file.Write(jsonData)
-	if err != nil {
-		fmt.Println("An error occurred while writing data:")
+		fmt.Println("File write error:", err)
 		return
 	}
 
 	fmt.Println("The out.json file was created at " + filePath)
+}
+
+func mapSliceToString(data []map[string]interface{}) string {
+	var sb strings.Builder
+
+	for _, item := range data {
+		sb.WriteString(mapToString(item))
+		sb.WriteString("\n")
+	}
+
+	return sb.String()
+}
+
+func mapToString(m map[string]interface{}) string {
+	var sb strings.Builder
+
+	keys := []string{"passwordId", "userId", "title", "url", "password"}
+
+	for _, key := range keys {
+		value := m[key]
+		sb.WriteString(fmt.Sprintf("%s : %v\n", key, value))
+	}
+
+	return sb.String()
 }
