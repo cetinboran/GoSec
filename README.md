@@ -17,6 +17,9 @@
 + You can download it from the Releases section
 + After downloading, make sure to set the location of the exe file and add the path of that configured location to your PATH file. The database will be automatically created in the documents or users file.
 + Note: Please be cautious while manipulating the PATH environment variable, as it directly affects how your operating system finds and executes files.
++ When downloading an executable (exe) file, you might receive a virus warning, but this can be misleading. If you'd like, you can examine the code from the source to verify.
++ If the virus threat warning doesn't go away, you can download the source code and create the exe file by writing the code below.
++ `go build main.go` After writing this, the exe file will be created inside the current folder.
 
 ## Modes
 + The application comprises five primary modes: Register, Config, Key, DeleteUser and Password.
