@@ -15,7 +15,7 @@
 
 ## How to Install?
 + You can download it from the Releases section
-+ After downloading, make sure to set the location of the exe file and add the path of that configured location to your PATH file. The database will be automatically created in the same directory as the exe.
++ After downloading, make sure to set the location of the exe file and add the path of that configured location to your PATH file. The database will be automatically created in the documents or users file.
 + Note: Please be cautious while manipulating the PATH environment variable, as it directly affects how your operating system finds and executes files.
 
 ## Modes

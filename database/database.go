@@ -14,7 +14,7 @@ var GosecDb gojson.Database
 
 func DatabaseInit() {
 
-	// Sets Path Of Database
+	// Otomatik db pathi ayarlıyor hiç biri işe yaramaz ise ./ a otomatik db oluşturuyor.
 	//targetDir := GetPath()
 
 	// Init DB
