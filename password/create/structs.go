@@ -2,7 +2,9 @@ package create
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 
 	cla "github.com/cetinboran/goarg/CLA"
 	"github.com/cetinboran/gojson/gojson"
@@ -81,7 +83,14 @@ func (p *Password) Save() {
 	// Eğer title default modundaysa yanına password ıd sini de ekleyip kaydediyoruz
 	// Böylelikle --generate istenilen zamanda kullanılabilir sıkıntı çıkmaz.
 	if p.Title == "Title" {
-		passwordId := fmt.Sprint(len(PasswordT.Get()) + 1)
+
+		seed := time.Now().UnixNano()
+		source := rand.NewSource(seed)
+		random := rand.New(source)
+
+		randomNumber := random.Intn(10000000) + 1
+
+		passwordId := fmt.Sprint(randomNumber)
 		p.Title += "-" + passwordId
 	}
 

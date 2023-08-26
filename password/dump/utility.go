@@ -40,8 +40,8 @@ func Out(d *Dump) {
 
 	filePath := d.Path + "out.json"
 
-	// JSON verilerini oluştur
-	jsonData, err := json.Marshal(passwords)
+	// JSON verilerini oluştur/ Indent insanların okuyabilmesi için.
+	jsonData, err := json.MarshalIndent(passwords, "", "  ")
 	if err != nil {
 		fmt.Println("An error occurred while generating the JSON")
 		return
