@@ -53,6 +53,7 @@ func CopyToClipboard(text string) error {
 	return nil
 }
 
+// Generates
 func GenerateKey(length int) string {
 	lower := "abcdefghijklmnopqrstuvwxyz"
 	upper := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

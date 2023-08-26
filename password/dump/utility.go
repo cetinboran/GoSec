@@ -47,7 +47,7 @@ func Out(d *Dump) {
 		return
 	}
 
-	fmt.Println("The out.json file was created at " + filePath)
+	fmt.Println("The out.txt file was created at " + filePath)
 }
 
 func mapSliceToString(data []map[string]interface{}) string {
