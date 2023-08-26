@@ -1,11 +1,6 @@
 package database
 
 import (
-	"fmt"
-	"os"
-	"path/filepath"
-	"runtime"
-
 	"github.com/cetinboran/gojson/gojson"
 )
 
@@ -53,6 +48,7 @@ func DatabaseInit() {
 
 }
 
+/* Bu kodu virüs olarak algılıyor microsoft. içerideki verilere eriştiği için o yüzden sildim.
 func GetPath() string {
 	// Gets the file path.
 	baseDir, err := os.UserHomeDir()
@@ -118,3 +114,4 @@ func GetPath() string {
 
 	return targetDir
 }
+*/
