@@ -43,9 +43,12 @@ func Auth(args []cla.Input) int {
 		os.Exit(2)
 	}
 
-	// Float64 ü int çevirir. Burada .(float64) gibi yazılımlar yani .(type) interfacelerde çalışıyor sadece
-	intUserId := int(math.Floor(user[0]["userId"].(float64)))
-	// Zaten programda kimsenin aynı şifresi olamıyor o yüzden böyle girebilirim
+	// Belki ilerde mapi döndürmen gerekir ama şuan gerekmiyor.
+	// Burada int olarak atıyoruz mapte userId yi ki diğer taraflarda sıkıntı çıkmasın.
+	if userIdFloat, ok := user[0]["userId"].(float64); ok {
+		userIdInt := int(math.Floor(userIdFloat))
+		user[0]["userId"] = userIdInt
+	}
 
-	return intUserId
+	return user[0]["userId"].(int)
 }

@@ -10,5 +10,4 @@ func Start(args []cla.Input) {
 	newRead := ReadInit(userId)
 	newRead.TakeInputs(args)
 	newRead.HandleInputs()
-
 }

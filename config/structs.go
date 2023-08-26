@@ -11,7 +11,7 @@ import (
 
 // Config Id yazmadım otomatik eklenicek DB ye zaten bu struct kolaylık için
 type Config struct {
-	UserId            int // Veriyi json dan çekiyoruz. Jsonda sayıları float64 yapıyor.
+	UserId            int
 	Secret            string
 	Password          string
 	SecretRequired    bool

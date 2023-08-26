@@ -9,7 +9,7 @@ import (
 )
 
 type Read struct {
-	userId         int
+	UserId         int
 	PasswordId     int
 	Title          string
 	Secret         string
@@ -20,7 +20,7 @@ type Read struct {
 }
 
 func ReadInit(userId int) *Read {
-	return &Read{SecretRequired: GetSecretRequired(userId), userId: userId}
+	return &Read{SecretRequired: GetSecretRequired(userId), UserId: userId}
 }
 
 func (r *Read) TakeInputs(args []cla.Input) {
@@ -64,7 +64,7 @@ func (r *Read) HandleInputs() {
 			fmt.Println(GetErrors(3))
 			os.Exit(3)
 		} else {
-			List(r.userId)
+			List(r.UserId)
 		}
 	}
 

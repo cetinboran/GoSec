@@ -57,9 +57,9 @@ func Copy(r *Read) {
 	}
 
 	// Aradığım Passwordu table dan çektim passwordId veya title kullanarak
-	passwordMap := getPasswordsIdOrTitle(r.userId, r.PasswordId, r.Title)
+	passwordMap := getPasswordsIdOrTitle(r.UserId, r.PasswordId, r.Title)
 
-	user := ConfigT.Find("userId", r.userId)
+	user := ConfigT.Find("userId", r.UserId)
 
 	// Config dosyasından user'ın secretını çektim
 	// Bununla password'un şifresini kırıcaz.
@@ -102,7 +102,7 @@ func Open(r *Read) {
 	// eğer otomatik giriş yapmasını istiyorsan "github.com/chromedp/chromedp" ile yapmak daha kolay.
 	// Girilen url ye filter koymalısın garanti olsun.
 
-	passwordMap := getPasswordsIdOrTitle(r.userId, r.PasswordId, r.Title)
+	passwordMap := getPasswordsIdOrTitle(r.UserId, r.PasswordId, r.Title)
 
 	passwordUrl := passwordMap[0]["url"].(string)
 	passwordUrl = strings.TrimSpace(passwordUrl)
