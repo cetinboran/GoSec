@@ -74,10 +74,16 @@ func main() {
 	Dump.AddOption("--out", true, "Dumps All Of Your Passwords")
 	Dump.AddOption("-p,--path", false, "Add your out path.")
 
+	Delete := cla.ModInit()
+	Delete.SetUsage("Password's Delete Mode", "You can delete password in this field.", []string{"Example"})
+	Delete.AddOption("-i,--id", false, "You can choose from password id")
+	Delete.AddOption("--all", true, "Deletes all passwords")
+
 	// Password Mode Init
 	Password.AddMode("create", &Create)
 	Password.AddMode("read", &Read)
 	Password.AddMode("dump", &Dump)
+	Password.AddMode("delete", &Delete)
 
 	// Global Option For Mods
 	Password.AddGlobalOption("-P", false, "Enter your password for using the program.")

@@ -8,6 +8,7 @@ import (
 	"github.com/cetinboran/gosec/config"
 	"github.com/cetinboran/gosec/key"
 	"github.com/cetinboran/gosec/password/create"
+	"github.com/cetinboran/gosec/password/delete"
 	"github.com/cetinboran/gosec/password/dump"
 	"github.com/cetinboran/gosec/password/read"
 	"github.com/cetinboran/gosec/register"
@@ -38,5 +39,7 @@ func SendInput(args []cla.Input) {
 		break
 	case "dump":
 		dump.Start(args)
+	case "delete":
+		delete.Start(args)
 	}
 }

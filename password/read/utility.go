@@ -145,7 +145,8 @@ func GetPasswords(userId int) []map[string]interface{} {
 	return passwords
 }
 
-func getValidPasswordId(userId int) []int {
+// Turns Valid Password's Id
+func GetValidPasswordId(userId int) []int {
 	var passwordIds []int
 	passwords := GetPasswords(userId)
 
@@ -165,8 +166,8 @@ func getValidTitles(userId int) []string {
 	return passwordIds
 }
 
-func checkValidPasswordId(userId int, PasswordId int) {
-	validIds := getValidPasswordId(userId)
+func CheckValidPasswordId(userId int, PasswordId int) {
+	validIds := GetValidPasswordId(userId)
 
 	check := false
 	for _, v := range validIds {
@@ -208,7 +209,7 @@ func checkValidTitle(userId int, title string) {
 func getPasswordsIdOrTitle(userId int, passwordId int, title string) []map[string]interface{} {
 	// Title boş ise title kontrol ediyor.
 	if passwordId != 0 && title == "" {
-		checkValidPasswordId(userId, passwordId)
+		CheckValidPasswordId(userId, passwordId)
 	}
 
 	if passwordId == 0 && title != "" {
