@@ -6,6 +6,7 @@ import (
 	cla "github.com/cetinboran/goarg/CLA"
 
 	"github.com/cetinboran/gosec/config"
+	"github.com/cetinboran/gosec/deleteuser"
 	"github.com/cetinboran/gosec/key"
 	"github.com/cetinboran/gosec/password/create"
 	"github.com/cetinboran/gosec/password/delete"
@@ -41,5 +42,7 @@ func SendInput(args []cla.Input) {
 		dump.Start(args)
 	case "delete":
 		delete.Start(args)
+	case "deleteuser":
+		deleteuser.Start(args)
 	}
 }

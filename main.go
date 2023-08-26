@@ -31,6 +31,10 @@ func main() {
 	Register.AddOption("-s, --secret", false, "Enter Your Secret")
 	Register.AddOption("-gen,--generate", false, "Sets Secret Key Automaticly")
 
+	DeleteUser := cla.ModInit()
+	DeleteUser.SetUsage("GoSec Delete Mode", "You can delete users in this field.", []string{"Example"})
+	DeleteUser.AddOption("-p,--pass", false, "Enter the password of the user to be deleted")
+
 	// Config Mode
 	Config := cla.ModInit()
 	Config.SetTitle("Config Mode")
@@ -99,6 +103,7 @@ func main() {
 	Setup.AddMode("config", &Config)
 	Setup.AddMode("key", &Key)
 	Setup.AddMode("password", &Password)
+	Setup.AddMode("deleteuser", &DeleteUser)
 
 	// Sets the global options.
 	Setup.AddGlobalOption("-P", false, "Enter your password for using the program.")
@@ -108,6 +113,7 @@ func main() {
 	Config.AutomaticUsage()
 	Key.AutomaticUsage()
 	Password.AutomaticUsage()
+	DeleteUser.AutomaticUsage()
 	Setup.AutomaticUsage()
 
 	args := Setup.Start()
