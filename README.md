@@ -1,4 +1,8 @@
 # GoSec
++ This project encompasses two of my own creations, namely, goarg and gojson.
+    + [**goarg**](https://github.com/cetinboran/goarg): It effortlessly parses command line arguments, providing you with the essential input you need.
+    + [**gojson**](https://github.com/cetinboran/gojson): With just a few lines of code, you can establish your own miniature database using JSON.
++ You can also contribute to these projects and show your support.
 
 ## What is This?
 + This project is a locally running password management application. It has multiple layers of security.
