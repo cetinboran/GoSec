@@ -10,7 +10,7 @@
 + User-Focused: Our project is tailored to provide an optimized user experience, making password management effortless and intuitive.
 
 ## How to Install?
-+ Ekle Sonra Bunu
++ You can download it from the Releases section
 
 ## Modes
 + The application comprises five primary modes: Register, Config, Key, DeleteUser and Password.
