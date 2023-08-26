@@ -127,6 +127,8 @@ func Open(r *Read) {
 		fmt.Println(GetErrors(8))
 		os.Exit(8)
 	}
+
+	fmt.Printf("successfully opened %v\n", passwordUrl)
 }
 
 // HELPER FUNCTIONS
@@ -148,8 +150,11 @@ func GetPasswords(userId int) []map[string]interface{} {
 // Turns Valid Password's Id
 func GetValidPasswordId(userId int) []int {
 	var passwordIds []int
+
+	// userId veriyoruz bize şifrelerinin mapini döndürüyor.
 	passwords := GetPasswords(userId)
 
+	// int yaparak geri döndürüyoruz.
 	for _, v := range passwords {
 		passwordIds = append(passwordIds, int(v["passwordId"].(float64)))
 	}

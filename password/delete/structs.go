@@ -45,10 +45,13 @@ func (d *Delete) HandleInputs() {
 
 	if d.PasswordId == 0 && d.All == "true" {
 		DeleteAll(d)
+		fmt.Println("Deletion completed successfully")
 	}
 
 	if d.PasswordId != 0 && d.All == "" {
 		DeleteById(d)
+		fmt.Println("Deletion completed successfully")
+
 	}
 
 }

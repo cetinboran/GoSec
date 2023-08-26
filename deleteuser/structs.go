@@ -1,6 +1,10 @@
 package deleteuser
 
-import cla "github.com/cetinboran/goarg/CLA"
+import (
+	"fmt"
+
+	cla "github.com/cetinboran/goarg/CLA"
+)
 
 type DeleteUser struct {
 	UserId   int
@@ -27,5 +31,6 @@ func (d *DeleteUser) TakeInputs(args []cla.Input) {
 func (d *DeleteUser) HandleInputs() {
 	if d.Password != "" {
 		UserDelete(d)
+		fmt.Println("User successfully deleted")
 	}
 }

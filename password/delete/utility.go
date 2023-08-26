@@ -14,9 +14,13 @@ func DeleteById(d *Delete) {
 
 func DeleteAll(d *Delete) {
 	passwordT := database.GosecDb.Tables["password"]
+
+	// userId alıyor bize bütün şifrelerinin passwordId lerini döndürüyor.
 	ValidPasswordIds := read.GetValidPasswordId(d.UserId)
 
+	// passwordId ye göre siliyoruz.
 	for _, v := range ValidPasswordIds {
 		passwordT.Delete("passwordId", v)
 	}
+
 }
