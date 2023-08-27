@@ -9,11 +9,8 @@ var GosecDb gojson.Database
 
 func DatabaseInit() {
 
-	// Otomatik db pathi ayarlıyor hiç biri işe yaramaz ise ./ a otomatik db oluşturuyor.
-	//targetDir := GetPath()
-
 	// Init DB
-	GosecDb = gojson.CreateDatabase("gosecDB", "./")
+	GosecDb = gojson.CreateDatabase("gosecDB", SetPath())
 
 	// Users Table
 	UsersT := gojson.CreateTable("users")
@@ -36,82 +33,21 @@ func DatabaseInit() {
 	PasswordsT.AddProperty("url", "string", "")
 	PasswordsT.AddProperty("password", "string", "")
 
+	// Settings Table
+	SettingsT := gojson.CreateTable("settings")
+	SettingsT.AddProperty("masterkey", "string", "")
+
 	// Adds table to the Database
 	GosecDb.AddTable(&UsersT)
 	GosecDb.AddTable(&ConfigT)
 	GosecDb.AddTable(&PasswordsT)
+	GosecDb.AddTable(&SettingsT)
 
 	// Creates Database Files.
 	GosecDb.CreateFiles()
 
+	SetSettings(&SettingsT)
+
 	// UsersT.Save(gojson.DataInit([]string{"username", "password"}, []interface{}{"BORANBORAN", "1"}, &UsersT))
 
 }
-
-/* Bu kodu virüs olarak algılıyor microsoft. içerideki verilere eriştiği için o yüzden sildim.
-func GetPath() string {
-	// Gets the file path.
-	baseDir, err := os.UserHomeDir()
-	if err != nil {
-		fmt.Println("Hata:", err)
-		return "./"
-	}
-
-	var targetDir string
-
-	check := true
-	switch runtime.GOOS {
-	case "windows":
-		fnames := []string{"Documents", "Belgeler"}
-
-		// Bütün olasılıkları deniyorum documents, belgeler gibi
-		for _, v := range fnames {
-			targetDir = filepath.Join(baseDir, v)
-
-			_, err = os.Stat(targetDir)
-			if err != nil {
-				// Böyle klasör yok
-				check = false
-				continue
-			} else {
-				check = true
-				targetDir += "\\"
-				break
-			}
-		}
-		// Eğer hiçbir olasılık çalışmadıysa users'ın altına veritabanını yerleştiriyorum
-		if !check {
-			targetDir = "./"
-		}
-		break
-	case "linux", "darwin":
-		fnames := []string{"Documents", "Belgeler"}
-
-		// Bütün olasılıkları deniyorum documents, belgeler gibi
-		for _, v := range fnames {
-			targetDir = filepath.Join(baseDir, v)
-
-			_, err = os.Stat(targetDir)
-			if err != nil {
-				// Böyle klasör yok
-				check = false
-				continue
-			} else {
-				check = true
-				targetDir += "/"
-				break
-			}
-		}
-		// Eğer hiçbir olasılık çalışmadıysa users'ın altına veritabanını yerleştiriyorum
-		if !check {
-			targetDir = "./"
-		}
-		break
-	default:
-		targetDir = "./"
-		break
-	}
-
-	return targetDir
-}
-*/

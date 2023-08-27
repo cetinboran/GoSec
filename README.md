@@ -15,11 +15,20 @@
 
 ## How to Install?
 + You can download it from the Releases section
-+ After downloading, make sure to set the location of the exe file and add the path of that configured location to your PATH file. The database will be automatically created in the documents or users file.
++ After downloading, make sure to set the location of the exe file and add the path of that configured location to your PATH file. The database will be automatically created in `C:\Users\<username>\gosecDB` PATH.
 + Note: Please be cautious while manipulating the PATH environment variable, as it directly affects how your operating system finds and executes files.
 + When downloading an executable (exe) file, you might receive a virus warning, but this can be misleading. If you'd like, you can examine the code from the source to verify.
 + If the virus threat warning doesn't go away, you can download the source code and create the exe file by writing the code below.
 + `go build main.go` After writing this, the exe file will be created inside the current folder.
+
+## First Open
++ When you open it for the first time, gosec will ask you for a master key.
++ This is an extra security. It is useful not to forget this master key.
++ Even if you forget, you can check it in settings.json.
++  You might ask, "Why expose the master key openly in the source code?"
++ Well, imagine someone developing a program based on this source code. Let's say they are building an API and they want to decrypt their own passwords, hosting a site locally for easy access. To achieve this, they would need access to the master key. However, if the master key is embedded within the binary, it could create complications.
++ Therefore, I have incorporated this approach to address such a scenario.
+
 
 ## Modes
 + The application comprises five primary modes: Register, Config, Key, DeleteUser and Password.
