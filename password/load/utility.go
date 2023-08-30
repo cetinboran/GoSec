@@ -2,7 +2,6 @@ package load
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strings"
 
@@ -22,7 +21,7 @@ func Path(l *Load) {
 	// Read and print each line
 	for scanner.Scan() {
 		line := scanner.Text()
-		fmt.Println(line)
+		SaveInputs(l, CheckLine(l, line))
 	}
 
 	// Check for errors during scanning
@@ -31,19 +30,21 @@ func Path(l *Load) {
 	}
 }
 
-func CheckLine(line string, l *Load) []string {
+func CheckLine(l *Load, line string) []string {
 	line = strings.TrimSpace(line)
-	if strings.Count(line, ",") != 5 {
+	if strings.Count(line, ",") != 3 {
 		l.Errors["-p"].GetErrors(3)
 	}
 
 	return strings.Split(line, ",")
 }
 
-func TakeInputs(l *Load, lineArr []string) {
+func SaveInputs(l *Load, lineArr []string) {
 	newPassword := create.PasswordInit(l.UserId)
 	newPassword.Title = lineArr[0]
 	newPassword.Url = lineArr[1]
 	newPassword.Username = lineArr[2]
-	newPassword.Username = lineArr[3]
+	newPassword.Password = lineArr[3]
+	newPassword.CheckInputs()
+	newPassword.Save()
 }
