@@ -20,24 +20,56 @@ func List(userId int) {
 }
 
 // Password Writer
+// => --list
 func ListWriter(Passwords []map[string]interface{}) {
 	var builder strings.Builder
+
+	// Hizalama için kullanılacak genişlik değerleri ilerde bu değerleri otomatik bulsun.
+	// mesela max url yi bulsun ve kendi urlsinden çıkarsın o değer kadar boşluk bıraksın.
+	idWidth := 3
+	titleWidth := 20
+	urlWidth := 30
+	usernameWidth := 20
+	passwordWidth := 30
+
+	// Başlık satırları
+	builder.WriteString(fmt.Sprintf("%-*s | %-*s | %-*s | %-*s | %-*s\n", idWidth, "ID", titleWidth, "Title", urlWidth, "URL", usernameWidth, "Username", passwordWidth, "Password"))
 
 	for _, v := range Passwords {
 		passwordID, passwordIDOK := v["passwordId"].(float64)
 		title, titleOK := v["title"].(string)
+		username, usernameOK := v["username"].(string)
 		password, passwordOK := v["password"].(string)
+		url, urlOK := v["url"].(string)
 
 		if passwordIDOK {
-			builder.WriteString(fmt.Sprintf("%.0f", passwordID) + " ")
+			builder.WriteString(fmt.Sprintf("%-*s | ", idWidth, fmt.Sprintf("%.0f", passwordID)))
+		} else {
+			builder.WriteString(fmt.Sprintf("%-*s | ", idWidth, ""))
 		}
 
 		if titleOK {
-			builder.WriteString(title + " ")
+			builder.WriteString(fmt.Sprintf("%-*s | ", titleWidth, title))
+		} else {
+			builder.WriteString(fmt.Sprintf("%-*s | ", titleWidth, ""))
+		}
+
+		if urlOK {
+			builder.WriteString(fmt.Sprintf("%-*s | ", urlWidth, url))
+		} else {
+			builder.WriteString(fmt.Sprintf("%-*s | ", urlWidth, ""))
+		}
+
+		if usernameOK {
+			builder.WriteString(fmt.Sprintf("%-*s | ", usernameWidth, username))
+		} else {
+			builder.WriteString(fmt.Sprintf("%-*s | ", usernameWidth, ""))
 		}
 
 		if passwordOK {
-			builder.WriteString(password + " ")
+			builder.WriteString(fmt.Sprintf("%-*s", passwordWidth, password))
+		} else {
+			builder.WriteString(fmt.Sprintf("%-*s", passwordWidth, ""))
 		}
 
 		builder.WriteString("\n")
