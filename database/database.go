@@ -1,11 +1,6 @@
 package database
 
 import (
-	"fmt"
-	"os"
-	"path/filepath"
-	"runtime"
-
 	"github.com/cetinboran/gojson/gojson"
 )
 
@@ -14,10 +9,7 @@ var GosecDb gojson.Database
 
 func DatabaseInit() {
 
-	// Otomatik db pathi ayarlıyor hiç biri işe yaramaz ise ./ a otomatik db oluşturuyor.
-	//targetDir := GetPath()
-
-	// Init DB
+	// Init DB  => Bunu eklersin path yerine exe yaparken SetPath()
 	GosecDb = gojson.CreateDatabase("gosecDB", "./")
 
 	// Users Table
@@ -41,80 +33,21 @@ func DatabaseInit() {
 	PasswordsT.AddProperty("url", "string", "")
 	PasswordsT.AddProperty("password", "string", "")
 
+	// Settings Table
+	SettingsT := gojson.CreateTable("settings")
+	SettingsT.AddProperty("masterkey", "string", "")
+
 	// Adds table to the Database
 	GosecDb.AddTable(&UsersT)
 	GosecDb.AddTable(&ConfigT)
 	GosecDb.AddTable(&PasswordsT)
+	GosecDb.AddTable(&SettingsT)
 
 	// Creates Database Files.
 	GosecDb.CreateFiles()
 
+	SetSettings(&SettingsT)
+
 	// UsersT.Save(gojson.DataInit([]string{"username", "password"}, []interface{}{"BORANBORAN", "1"}, &UsersT))
 
-}
-
-func GetPath() string {
-	// Gets the file path.
-	baseDir, err := os.UserHomeDir()
-	if err != nil {
-		fmt.Println("Hata:", err)
-		return "./"
-	}
-
-	var targetDir string
-
-	check := true
-	switch runtime.GOOS {
-	case "windows":
-		fnames := []string{"Documents", "Belgeler"}
-
-		// Bütün olasılıkları deniyorum documents, belgeler gibi
-		for _, v := range fnames {
-			targetDir = filepath.Join(baseDir, v)
-
-			_, err = os.Stat(targetDir)
-			if err != nil {
-				// Böyle klasör yok
-				check = false
-				continue
-			} else {
-				check = true
-				targetDir += "\\"
-				break
-			}
-		}
-		// Eğer hiçbir olasılık çalışmadıysa users'ın altına veritabanını yerleştiriyorum
-		if !check {
-			targetDir = "./"
-		}
-		break
-	case "linux", "darwin":
-		fnames := []string{"Documents", "Belgeler"}
-
-		// Bütün olasılıkları deniyorum documents, belgeler gibi
-		for _, v := range fnames {
-			targetDir = filepath.Join(baseDir, v)
-
-			_, err = os.Stat(targetDir)
-			if err != nil {
-				// Böyle klasör yok
-				check = false
-				continue
-			} else {
-				check = true
-				targetDir += "/"
-				break
-			}
-		}
-		// Eğer hiçbir olasılık çalışmadıysa users'ın altına veritabanını yerleştiriyorum
-		if !check {
-			targetDir = "./"
-		}
-		break
-	default:
-		targetDir = "./"
-		break
-	}
-
-	return targetDir
 }
