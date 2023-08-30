@@ -2,6 +2,7 @@ package load
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strings"
 
@@ -28,6 +29,8 @@ func Path(l *Load) {
 	if err := scanner.Err(); err != nil {
 		l.Errors["-p"].GetErrors(2)
 	}
+
+	fmt.Println("Passwords saved successfully")
 }
 
 func CheckLine(l *Load, line string) []string {
@@ -47,4 +50,21 @@ func SaveInputs(l *Load, lineArr []string) {
 	newPassword.Password = lineArr[3]
 	newPassword.CheckInputs()
 	newPassword.Save()
+}
+
+func Format(l *Load) {
+	content := "title1,url1,username1,password1\ntitle2,url2,username2,password2\ntitle3,url3,username3,password3"
+
+	file, err := os.Create("format.txt")
+	if err != nil {
+		l.Errors["--format"].GetErrors(1)
+	}
+	defer file.Close()
+
+	_, err = file.WriteString(content)
+	if err != nil {
+		l.Errors["--format"].GetErrors(2)
+	}
+
+	fmt.Println("Created a sample format txt file")
 }

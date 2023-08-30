@@ -91,6 +91,7 @@ func main() {
 
 	// Load Add Error
 	Load.AddError("-p,--path", []string{"Invalid Path", "Error While Reading File", "Please enter in the specified format"})
+	Load.AddError("--format", []string{"An error occurred while creating the file", "An error occurred while writing to the file"})
 
 	// Password Mode Init
 	Password.AddMode("create", &Create)

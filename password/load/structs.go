@@ -1,6 +1,11 @@
 package load
 
-import cla "github.com/cetinboran/goarg/CLA"
+import (
+	"fmt"
+	"os"
+
+	cla "github.com/cetinboran/goarg/CLA"
+)
 
 type Load struct {
 	UserId int
@@ -26,7 +31,16 @@ func (l *Load) TakeInputs(args []cla.Input) {
 }
 
 func (l *Load) HandleInputs() {
-	if l.Format != true {
+	if l.Format != true && l.Path != "" {
 		Path(l)
+	}
+
+	if l.Path == "" && l.Format {
+		Format(l)
+	}
+
+	if l.Format == true && l.Path != "" {
+		fmt.Println("Cannot use --format and --path at the same time")
+		os.Exit(1)
 	}
 }
