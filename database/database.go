@@ -31,6 +31,7 @@ func DatabaseInit() {
 	PasswordsT.AddProperty("userId", "int", "")
 	PasswordsT.AddProperty("title", "string", "")
 	PasswordsT.AddProperty("url", "string", "")
+	PasswordsT.AddProperty("username", "string", "")
 	PasswordsT.AddProperty("password", "string", "")
 
 	// Settings Table

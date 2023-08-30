@@ -3,13 +3,14 @@ package load
 import cla "github.com/cetinboran/goarg/CLA"
 
 type Load struct {
+	UserId int
 	Path   string
 	Format bool
 	Errors map[string]*cla.OptionError
 }
 
-func LoadInit() *Load {
-	return &Load{}
+func LoadInit(userId int) *Load {
+	return &Load{UserId: userId}
 }
 
 func (l *Load) TakeInputs(args []cla.Input) {

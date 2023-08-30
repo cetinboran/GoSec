@@ -59,7 +59,8 @@ func main() {
 	Create.SetDescription("You can save your passwords in this field.")
 	Create.SetExamples([]string{"gosec password create -P <loginpassword> -t <title> -u <url> -p <password>", "gosec password create -P <loginpassword> --create"})
 	Create.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.")
-	Create.AddOption("-u,--url", false, "Enter where this password is being used")
+	Create.AddOption("-u,--user", false, "Enter where this username is being used")
+	Create.AddOption("--url", false, "Enter where this password is being used")
 	Create.AddOption("-p,--pass", false, "Enter the password")
 	Create.AddOption("--generate", true, "Creates Password For You. 16 chars")
 
@@ -89,7 +90,7 @@ func main() {
 	Load.AddOption("--format", true, "Create example file.")
 
 	// Load Add Error
-	Load.AddError("-p,--path", []string{"Invalid Path", "Error While Reading File"})
+	Load.AddError("-p,--path", []string{"Invalid Path", "Error While Reading File", "Please enter in the specified format"})
 
 	// Password Mode Init
 	Password.AddMode("create", &Create)

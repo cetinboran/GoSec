@@ -19,6 +19,7 @@ type Password struct {
 	UserId   int
 	Title    string
 	Url      string
+	Username string
 	Password string
 	Create   string
 }
@@ -32,8 +33,11 @@ func (p *Password) TakeInputs(args []cla.Input) {
 		if i2.Argument == "t" || i2.Argument == "title" {
 			p.Title = i2.Value
 		}
-		if i2.Argument == "u" || i2.Argument == "url" {
+		if i2.Argument == "url" {
 			p.Url = i2.Value
+		}
+		if i2.Argument == "u" || i2.Argument == "user" {
+			p.Username = i2.Value
 		}
 		if i2.Argument == "p" || i2.Argument == "pass" {
 			p.Password = i2.Value
@@ -69,6 +73,10 @@ func (p *Password) CheckInputs() {
 	// Default Değerleri Değiştirdim.
 	if p.Title == "" {
 		p.Title = "Title"
+	}
+
+	if p.Username == "" {
+		p.Username = "username"
 	}
 
 	if p.Url == "" {
@@ -114,7 +122,7 @@ func (p *Password) Save() {
 
 	// passwordId yi db de pk yaptığım için otomatik ayarlanacak
 	// sonra kayıt işlemi gerçekleştiriliyor.
-	newData := gojson.DataInit([]string{"userId", "title", "url", "password"}, []interface{}{p.UserId, p.Title, p.Url, cryptedPassword}, PasswordT)
+	newData := gojson.DataInit([]string{"userId", "title", "url", "username", "password"}, []interface{}{p.UserId, p.Title, p.Url, p.Username, cryptedPassword}, PasswordT)
 
 	PasswordT.Save(newData)
 }
