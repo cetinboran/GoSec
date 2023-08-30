@@ -88,6 +88,9 @@ func main() {
 	Load.AddOption("-p,--path", false, "Enter the path of file.")
 	Load.AddOption("--format", true, "Create example file.")
 
+	// Load Add Error
+	Load.AddError("-p,--path", []string{"Invalid Path", "Error While Reading File"})
+
 	// Password Mode Init
 	Password.AddMode("create", &Create)
 	Password.AddMode("read", &Read)

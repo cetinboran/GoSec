@@ -5,6 +5,7 @@ import cla "github.com/cetinboran/goarg/CLA"
 type Load struct {
 	Path   string
 	Format bool
+	Errors map[string]*cla.OptionError
 }
 
 func LoadInit() *Load {
@@ -24,5 +25,7 @@ func (l *Load) TakeInputs(args []cla.Input) {
 }
 
 func (l *Load) HandleInputs() {
-
+	if l.Format != true {
+		Path(l)
+	}
 }
