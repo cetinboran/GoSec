@@ -11,11 +11,12 @@ import (
 	"github.com/cetinboran/gosec/password/create"
 	"github.com/cetinboran/gosec/password/delete"
 	"github.com/cetinboran/gosec/password/dump"
+	"github.com/cetinboran/gosec/password/load"
 	"github.com/cetinboran/gosec/password/read"
 	"github.com/cetinboran/gosec/register"
 )
 
-func SendInput(args []cla.Input) {
+func SendInput(args []cla.Input, errors map[string]*cla.OptionError) {
 
 	// Arg'ın nerden geldiğini anlamamız için.
 	ModeName := args[0].ModeName
@@ -40,9 +41,14 @@ func SendInput(args []cla.Input) {
 		break
 	case "dump":
 		dump.Start(args)
+		break
 	case "delete":
 		delete.Start(args)
+		break
 	case "deleteuser":
 		deleteuser.Start(args)
+		break
+	case "load":
+		load.Start(args, errors)
 	}
 }

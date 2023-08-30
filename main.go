@@ -83,11 +83,17 @@ func main() {
 	Delete.AddOption("-i,--id", false, "You can choose from password id")
 	Delete.AddOption("--all", true, "Deletes all passwords")
 
+	Load := cla.ModInit()
+	Load.SetUsage("Password's Load Mode", "You can load passwords.", []string{"Example"})
+	Load.AddOption("-p,--path", false, "Enter the path of file.")
+	Load.AddOption("--format", true, "Create example file.")
+
 	// Password Mode Init
 	Password.AddMode("create", &Create)
 	Password.AddMode("read", &Read)
 	Password.AddMode("dump", &Dump)
 	Password.AddMode("delete", &Delete)
+	Password.AddMode("load", &Load)
 
 	// Global Option For Mods
 	Password.AddGlobalOption("-P", false, "Enter your password for using the program.")
@@ -96,6 +102,7 @@ func main() {
 	Create.AutomaticUsage()
 	Read.AutomaticUsage()
 	Dump.AutomaticUsage()
+	Load.AutomaticUsage()
 	// Password Mods Usage **********************************************************************
 
 	// Main Mode Init
@@ -116,7 +123,7 @@ func main() {
 	DeleteUser.AutomaticUsage()
 	Setup.AutomaticUsage()
 
-	args := Setup.Start()
+	args, errors := Setup.Start()
 
-	inputhandler.SendInput(args)
+	inputhandler.SendInput(args, errors)
 }
