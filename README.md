@@ -70,6 +70,9 @@
         + **-s, --secret**: You need to input your user secret for extra security.
         + **-p ,--path**: You can specify the path for the dump. By default, it will be saved where the binary file is located.
         + **--out**: Saves all passwords to the specified path.
+    + **_Load_**: You can use the "load" module to easily write your passwords to a text file in the specified format and add all the passwords to a database with a single click. This module can take two arguments:
+        + **--p, --path**: The first argument is the path to the file containing the passwords. If you provide this path, the module will automatically load the passwords for you. Make sure that the titles are not the same.
+        + **--format**: The second argument does not require any input. It will generate an example "format.txt" file for you. You can use this file as a template to create your password file with the necessary information.
 
 # Contact
 
