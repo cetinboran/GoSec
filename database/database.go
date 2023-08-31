@@ -10,7 +10,7 @@ var GosecDb gojson.Database
 func DatabaseInit() {
 
 	// Init DB  => Bunu eklersin path yerine exe yaparken SetPath()
-	GosecDb = gojson.CreateDatabase("gosecDB", SetPath())
+	GosecDb = gojson.CreateDatabase("gosecDB", "./")
 
 	// Users Table
 	UsersT := gojson.CreateTable("users")
