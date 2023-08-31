@@ -48,12 +48,6 @@ func main() {
 	Key.SetExamples([]string{"gosec key -gen <16,24,32>"})
 	Key.AddOption("-gen, --generate", false, "Creates The Secret Key!")
 
-	Auth := cla.ModInit()
-	Auth.SetUsage("GoSec Auth Mode", "You can check your password. This is for gosecGUI", []string{})
-	Auth.AddOption("-p, --password", false, "Checks the entered password.")
-
-	Auth.AddError("-p,--password", []string{"Invalid Password!"})
-
 	// Password Mode **********************************************************************
 	Password := cla.ModInit()
 	Password.SetUsage("GoSec Password Mode", "This mod allows you to save, read, dump, delete and load your passwords.", []string{})
@@ -125,7 +119,6 @@ func main() {
 	Setup.AddMode("key", &Key)
 	Setup.AddMode("password", &Password)
 	Setup.AddMode("deleteuser", &DeleteUser)
-	Setup.AddMode("auth", &Auth)
 
 	// Sets the global options.
 	Setup.AddGlobalOption("-P", false, "Enter your password for using the program.")
@@ -136,7 +129,6 @@ func main() {
 	Key.AutomaticUsage()
 	Password.AutomaticUsage()
 	DeleteUser.AutomaticUsage()
-	Auth.AutomaticUsage()
 	Setup.AutomaticUsage()
 
 	args, errors := Setup.Start()
