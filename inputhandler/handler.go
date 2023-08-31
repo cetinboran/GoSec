@@ -5,6 +5,7 @@ package inputhandler
 import (
 	cla "github.com/cetinboran/goarg/CLA"
 
+	"github.com/cetinboran/gosec/auth"
 	"github.com/cetinboran/gosec/config"
 	"github.com/cetinboran/gosec/deleteuser"
 	"github.com/cetinboran/gosec/key"
@@ -50,5 +51,7 @@ func SendInput(args []cla.Input, errors map[string]*cla.OptionError) {
 		break
 	case "load":
 		load.Start(args, errors)
+	case "auth":
+		auth.Start(args, errors)
 	}
 }
