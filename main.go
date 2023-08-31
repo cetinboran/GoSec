@@ -23,8 +23,8 @@ func main() {
 
 	// Register Mode
 	Register := cla.ModInit()
-	Register.SetTitle("Register Mode")
-	Register.SetExamples([]string{"Example 1", "Example 2"})
+	Register.SetUsage("GoSec Register Mode", "You can sign up here to use the program.", []string{})
+	Register.SetExamples([]string{"gosec register -u <user> -p <pass> -cp <repass> -s <key>", "gosec register -u <user> -p <pass> -cp <repass> -gen <16,24,32>"})
 	Register.AddOption("-u, --user", false, "Enter Your Username")
 	Register.AddOption("-p, --pass", false, "Enter Your Password")
 	Register.AddOption("-cp, --cpass", false, "Confirm Your Password")
@@ -32,32 +32,30 @@ func main() {
 	Register.AddOption("-gen,--generate", false, "Sets Secret Key Automaticly")
 
 	DeleteUser := cla.ModInit()
-	DeleteUser.SetUsage("GoSec Delete Mode", "You can delete users in this field.", []string{"Example"})
+	DeleteUser.SetUsage("GoSec Delete Mode", "You can delete users in this field.", []string{"gosec deleteuser -p <pass>"})
 	DeleteUser.AddOption("-p,--pass", false, "Enter the password of the user to be deleted")
 
 	// Config Mode
 	Config := cla.ModInit()
-	Config.SetTitle("Config Mode")
-	Config.SetExamples([]string{"Example 1", "Example 2"})
+	Config.SetUsage("GoSec Config Mode", "You can adjust the program settings here", []string{})
+	Config.SetExamples([]string{"gosec config -k <key>", "gosec config -req <true,false>"})
 	Config.AddOption("-k, --key", false, "Sets The Secret Key")
 	Config.AddOption("-req,--required", false, "Sets the Secret Required true / false.")
 
 	// Key Mode
 	Key := cla.ModInit()
-	Key.SetTitle("Key Mode")
-	Key.SetExamples([]string{"Example 1", "Example 2"})
+	Key.SetUsage("GoSec Key Mode", "You can generate key in this filed.", []string{})
+	Key.SetExamples([]string{"gosec key -gen <16,24,32>"})
 	Key.AddOption("-gen, --generate", false, "Creates The Secret Key!")
 
 	// Password Mode **********************************************************************
 	Password := cla.ModInit()
-	Password.SetTitle("Password Mode")
-	Password.SetDescription("This mod allows you to save your passwords.\nYou can even generate an automatic password")
+	Password.SetUsage("GoSec Password Mode", "This mod allows you to save, read, dump, delete and load your passwords.", []string{})
 	Password.SetExamples([]string{"gosec password <mode name>"})
 
 	Create := cla.ModInit()
-	Create.SetTitle("Password's Create Mode")
-	Create.SetDescription("You can save your passwords in this field.")
-	Create.SetExamples([]string{"gosec password create -P <loginpassword> -t <title> -u <url> -p <password>", "gosec password create -P <loginpassword> --create"})
+	Create.SetUsage("Password's Create Mode", "You can save your passwords in this field.", []string{})
+	Create.SetExamples([]string{"gosec password create -P <loginpassword> -t <title> -u <url> -p <password>", "gosec password create -P <loginpassword> --generate"})
 	Create.AddOption("-t,--title", false, "Enter the Title of your Password. Like Instagram etc.")
 	Create.AddOption("-u,--user", false, "Enter where this username is being used")
 	Create.AddOption("--url", false, "Enter where this password is being used")
@@ -65,7 +63,8 @@ func main() {
 	Create.AddOption("--generate", true, "Creates Password For You. 16 chars")
 
 	Read := cla.ModInit()
-	Read.SetUsage("Password's Read Mode", "You can read your password in this field.", []string{"Example"})
+	Read.SetUsage("Password's Read Mode", "You can read your password in this field.", []string{})
+	Read.SetExamples([]string{"gosec password read -p <loginP> --list", "gosec password read -P <loginP> --open --copy -i"})
 	Read.AddOption("-i,--id", false, "You can choose from password id")
 	Read.AddOption("-t,--title", false, "You can choose from title of your password")
 	Read.AddOption("-s, --secret", false, "Enter your secret.")
@@ -74,20 +73,23 @@ func main() {
 	Read.AddOption("--copy", true, "Copies the password")
 
 	Dump := cla.ModInit()
-	Dump.SetUsage("Password's Dump Mode", "You can dump all of your passwords in this field.", []string{"Example"})
+	Dump.SetUsage("Password's Dump Mode", "You can dump all of your passwords in this field.", []string{})
+	Dump.SetExamples([]string{"gosec password dump -p <path> --out"})
 	Dump.AddOption("-s,--secret", false, "Enter your secret. For Extra Security.")
 	Dump.AddOption("--out", true, "Dumps All Of Your Passwords")
 	Dump.AddOption("-p,--path", false, "Add your out path.")
 
 	Delete := cla.ModInit()
-	Delete.SetUsage("Password's Delete Mode", "You can delete password in this field.", []string{"Example"})
+	Delete.SetUsage("Password's Delete Mode", "You can delete password in this field.", []string{})
+	Delete.SetExamples([]string{"gosec password delete -P <loginP> -i <id>", "gosec password delete -P <loginP> --all"})
 	Delete.AddOption("-i,--id", false, "You can choose from password id")
 	Delete.AddOption("--all", true, "Deletes all passwords")
 
 	Load := cla.ModInit()
-	Load.SetUsage("Password's Load Mode", "You can load passwords.", []string{"Example"})
+	Load.SetUsage("Password's Load Mode", "You can load passwords.", []string{})
+	Load.SetExamples([]string{"gosec password load -P <loginP> -p <pathOfFile>", "gosec password load -P <loginP> --format"})
 	Load.AddOption("-p,--path", false, "Enter the path of file.")
-	Load.AddOption("--format", true, "Create example file.")
+	Load.AddOption("--format", true, "Creatse example password file.")
 
 	// Load Add Error
 	Load.AddError("-p,--path", []string{"Invalid Path", "Error While Reading File", "Please enter in the specified format"})
@@ -108,6 +110,7 @@ func main() {
 	Read.AutomaticUsage()
 	Dump.AutomaticUsage()
 	Load.AutomaticUsage()
+	Delete.AutomaticUsage()
 	// Password Mods Usage **********************************************************************
 
 	// Main Mode Init
